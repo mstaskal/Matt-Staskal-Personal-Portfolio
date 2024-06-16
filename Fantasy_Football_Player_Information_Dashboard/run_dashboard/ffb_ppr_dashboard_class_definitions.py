@@ -17,8 +17,8 @@ from PIL import Image, ImageTk
 from tkinter import messagebox
 import csv
 import matplotlib.pyplot as plt
-from final_project.player_reports import ppr_scoring_consist_class_def as consist, ppr_scoring_dist_class_def as dist, ppr_scoring_week_to_week_class_def as w2w
-from final_project.team_logos.team_logos_dict import logo_dict as logos
+from player_reports import ppr_scoring_consist_class_def as consist, ppr_scoring_dist_class_def as dist, ppr_scoring_week_to_week_class_def as w2w
+from team_logos.team_logos_dict import logo_dict as logos
 
 
 class Player:

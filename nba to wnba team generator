@@ -1,6 +1,6 @@
 """
-Creating a randomized list of 12 NBA rosters composed of the top 144 NBA players,
-to give an idea of how good the teams would be if it were like the NBA
+Creating a randomized list of 12 NBA starting lineups composed of the top 60 NBA players by Player Efficiency Rating for 2023-2024 season,
+to give an idea of how good the NBA teams would be the league was only composed of 12 total teams like the WNBA
 """
 import csv
 import random

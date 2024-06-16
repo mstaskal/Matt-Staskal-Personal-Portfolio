@@ -1,5 +1,5 @@
 """
-Attempting to make a randomized list of 12 NBA rosters composed of the top 144 NBA players,
+Creating a randomized list of 12 NBA rosters composed of the top 144 NBA players,
 to give an idea of how good the teams would be if it were like the NBA
 """
 import csv

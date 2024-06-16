@@ -60,9 +60,9 @@ class PlayerCard:
         self.current_date = datetime.datetime.now()
         self.master.title(f'2023 Fantasy Football Player Profiles            Today\'s date: {self.current_date.month}-{self.current_date.day}-{self.current_date.year}')
         self.master.config(bg='gray20')
-        with open('C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/player_cards/PLAYER_CARDS_FINAL.json') as pc2023:
+        with open('PLAYER_CARDS_FINAL.json') as pc2023:
             self.player_list = json.load(pc2023)
-        with open('C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/season_totals/SEASON_TOTALS_ALL_PLAYERS.json') as st2023:
+        with open('season_totals/SEASON_TOTALS_ALL_PLAYERS.json') as st2023:
             self.season_totals_list = json.load(st2023)
 
         self.search_prompt = tk.Label(self.master,
@@ -199,7 +199,7 @@ class PlayerCard:
                 match i["Position"]:
                     case "QB":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/scoring_distribution_report/ppr_scoring_dist_qb.csv') as qb_csv:
+                                'scoring_distribution_report/ppr_scoring_dist_qb.csv') as qb_csv:
                             csv_reader = csv.reader(qb_csv, delimiter=',')
                             line_count = 0
                             qb_group = {}
@@ -243,7 +243,7 @@ class PlayerCard:
 
                     case "RB":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/scoring_distribution_report/ppr_scoring_dist_rb.csv') as rb_csv:
+                                'scoring_distribution_report/ppr_scoring_dist_rb.csv') as rb_csv:
                             csv_reader = csv.reader(rb_csv, delimiter=',')
                             line_count = 0
                             rb_group = {}
@@ -289,7 +289,7 @@ class PlayerCard:
 
                     case "WR":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/scoring_distribution_report/ppr_scoring_dist_wr.csv') as wr_csv:
+                                'scoring_distribution_report/ppr_scoring_dist_wr.csv') as wr_csv:
                             csv_reader = csv.reader(wr_csv, delimiter=',')
                             line_count = 0
                             wr_group = {}
@@ -336,7 +336,7 @@ class PlayerCard:
 
                     case "TE":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/scoring_distribution_report/ppr_scoring_dist_te.csv') as te_csv:
+                                'scoring_distribution_report/ppr_scoring_dist_te.csv') as te_csv:
                             csv_reader = csv.reader(te_csv, delimiter=',')
                             line_count = 0
                             te_group = {}
@@ -383,7 +383,7 @@ class PlayerCard:
 
                     case "K":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/scoring_distribution_report/ppr_scoring_dist_k.csv') as k_csv:
+                                'scoring_distribution_report/ppr_scoring_dist_k.csv') as k_csv:
                             csv_reader = csv.reader(k_csv, delimiter=',')
                             line_count = 0
                             k_group = {}
@@ -421,7 +421,7 @@ class PlayerCard:
 
                     case "DST":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/scoring_distribution_report/ppr_scoring_dist_dst.csv') as dst_csv:
+                                'scoring_distribution_report/ppr_scoring_dist_dst.csv') as dst_csv:
                             csv_reader = csv.reader(dst_csv, delimiter=',')
                             line_count = 0
                             dst_group = {}
@@ -479,7 +479,7 @@ class PlayerCard:
                 match i["Position"]:
                     case "QB":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/consistency_report/consist_qb.csv') as qb_csv:
+                                'consistency_report/consist_qb.csv') as qb_csv:
                             csv_reader = csv.reader(qb_csv, delimiter=',')
                             line_count = 0
                             qb_group = {}
@@ -537,7 +537,7 @@ class PlayerCard:
 
                     case "RB":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/consistency_report/consist_rb.csv') as rb_csv:
+                                'consistency_report/consist_rb.csv') as rb_csv:
                             csv_reader = csv.reader(rb_csv, delimiter=',')
                             line_count = 0
                             rb_group = {}
@@ -599,7 +599,7 @@ class PlayerCard:
 
                     case "WR":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/consistency_report/consist_wr.csv') as wr_csv:
+                                'consistency_report/consist_wr.csv') as wr_csv:
                             csv_reader = csv.reader(wr_csv, delimiter=',')
                             line_count = 0
                             wr_group = {}
@@ -661,7 +661,7 @@ class PlayerCard:
 
                     case "TE":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/consistency_report/consist_te.csv') as te_csv:
+                                'consistency_report/consist_te.csv') as te_csv:
                             csv_reader = csv.reader(te_csv, delimiter=',')
                             line_count = 0
                             te_group = {}
@@ -724,7 +724,7 @@ class PlayerCard:
 
                     case "K":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/consistency_report/consist_k.csv') as k_csv:
+                                'consistency_report/consist_k.csv') as k_csv:
                             csv_reader = csv.reader(k_csv, delimiter=',')
                             line_count = 0
                             k_group = {}
@@ -782,7 +782,7 @@ class PlayerCard:
 
                     case "DST":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/consistency_report/consist_dst.csv') as dst_csv:
+                                'consistency_report/consist_dst.csv') as dst_csv:
                             csv_reader = csv.reader(dst_csv, delimiter=',')
                             line_count = 0
                             dst_group = {}
@@ -844,7 +844,7 @@ class PlayerCard:
                 match i["Position"]:
                     case "QB":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/game_by_game_report/game_by_game_qb.csv') as w2wqb_csv:
+                                'game_by_game_report/game_by_game_qb.csv') as w2wqb_csv:
                             csv_reader = csv.reader(w2wqb_csv, delimiter=',')
                             line_count = 0
                             w2wqb_group = {}
@@ -872,7 +872,7 @@ class PlayerCard:
 
                     case "WR":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/game_by_game_report/game_by_game_wr.csv') as w2wwr_csv:
+                                'game_by_game_report/game_by_game_wr.csv') as w2wwr_csv:
                             csv_reader = csv.reader(w2wwr_csv, delimiter=',')
                             line_count = 0
                             w2wwr_group = {}
@@ -900,7 +900,7 @@ class PlayerCard:
 
                     case "RB":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/game_by_game_report/game_by_game_rb.csv') as w2wrb_csv:
+                                'game_by_game_report/game_by_game_rb.csv') as w2wrb_csv:
                             csv_reader = csv.reader(w2wrb_csv, delimiter=',')
                             line_count = 0
                             w2wrb_group = {}
@@ -928,7 +928,7 @@ class PlayerCard:
 
                     case "TE":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/game_by_game_report/game_by_game_te.csv') as w2wte_csv:
+                                'game_by_game_report/game_by_game_te.csv') as w2wte_csv:
                             csv_reader = csv.reader(w2wte_csv, delimiter=',')
                             line_count = 0
                             w2wte_group = {}
@@ -956,7 +956,7 @@ class PlayerCard:
 
                     case "K":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/game_by_game_report/game_by_game_k.csv') as w2wk_csv:
+                                'game_by_game_report/game_by_game_k.csv') as w2wk_csv:
                             csv_reader = csv.reader(w2wk_csv, delimiter=',')
                             line_count = 0
                             w2wk_group = {}
@@ -984,7 +984,7 @@ class PlayerCard:
 
                     case "DST":
                         with open(
-                                'C:/Users/13199/Desktop/Matts/PycharmProjects/CIS189/final_project/game_by_game_report/game_by_game_dst.csv') as w2wdst_csv:
+                                'game_by_game_report/game_by_game_dst.csv') as w2wdst_csv:
                             csv_reader = csv.reader(w2wdst_csv, delimiter=',')
                             line_count = 0
                             w2wdst_group = {}

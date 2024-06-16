@@ -1,2 +1,5 @@
 How to run program:
-I. ffb_ppr_
+
+run_dashboard folder contains the class definitions file and the application code. You can run the program by opening both files and running ffb_ppr_dashboard_driver.py
+
+

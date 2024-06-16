@@ -1,8 +1,6 @@
 """
 Name: Matt Staskal
-Class: CIS 189
-Module: Final project
-Topic: Fantasy football player dashboard - Class definitions
+Program: Fantasy football player dashboard - Class definitions
 The purpose of this program is to define classes to use to create the dashboard. The PlayerCard class contains the
 tkinter object, searches for a player, and uses the Player class to create a player object to display the player's
 information.

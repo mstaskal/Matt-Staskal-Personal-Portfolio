@@ -1,4 +1,13 @@
-/*Creating and populating a table for practice based on an imaginary portfolio of mortgage loans*/
+/*
+Creation of a fictional mortgage loan database with the following tables:
+All active loans
+Performing loans
+Delinquent loans
+Properties
+Borrowers
+Payment history
+
+Tables created using MS Excel, Python, and Oracle SQL*/
 
 /*Python code for creating the SQL INSERT INTO statements:
 

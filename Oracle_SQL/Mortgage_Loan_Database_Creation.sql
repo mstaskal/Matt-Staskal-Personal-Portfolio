@@ -6,6 +6,7 @@ Delinquent loans
 Properties
 Borrowers
 Payment history
+Delinquency codes
 
 Tables created using MS Excel, Python, and Oracle SQL*/
 
@@ -42,7 +43,7 @@ for i in range(1,26):
 for i in loan_list:
     print(i)
 
-3) python script to create SQL statement
+3) Python script to create SQL statement
 
 with open(
         'C:/Users/13199/Desktop/Matts/Data_Portfolio/Loan_list.csv') as loan_csv:
@@ -86,23 +87,23 @@ CREATE TABLE active_loans
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (314174313,'Smith','John','123 Maple St','Chicago','IL',60601,250000.00,4.25,245000,0.98,1229,300,'1-Oct-24','N','');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (588128788,'Johnson','Sarah','456 Oak Ave','Houston','TX',77001,150000.00,3.75,98654,0.657693333,870,220,'1-Sep-23','Y','Medical expenses');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (268367496,'Williams','Michael','789 Pine Blvd','Los Angeles','CA',90001,400000.00,5,356522,0.891305,2147,450,'1-Oct-24','N','');
-INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (45184254,'Brown','Jessica','101 Cedar Dr','Miami','FL',33101,175000.00,4.1,100233,0.57276,945,250,'1-Jun-23','Y','Job relocation');
+INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (45184254,'Brown','Jessica','101 Cedar Dr','Miami','FL',33101,175000.00,4.1,100233,0.57276,945,250,'1-Jun-23','Y','Unemployment');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (457059756,'Jones','Robert','202 Birch Ln','Atlanta','GA',30301,300000.00,4.5,285226,0.950753333,1520,330,'1-Oct-24','N','');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (302719164,'Garcia','Maria','303 Elm St','Phoenix','AZ',85001,225000.00,3.9,125452,0.557564444,1061,280,'1-Oct-24','N','');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (401579210,'Martinez','David','404 Maple Rd','New York','NY',10001,500000.00,4.75,400253,0.800506,2608,500,'1-May-24','Y','Business failure');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (958027632,'Hernandez','Da','505 Oak Ln','Dallas','TX',75201,350000.00,4.2,344652,0.98472,1719,400,'1-Oct-24','N','');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (949046800,'Lopez','James','606 Pine St','San Francisco','CA',94101,600000.00,5.1,523214,0.872023333,3265,600,'1-Oct-24','N','');
-INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (997953032,'Gonzalez','Laura','707 Cedar Ave','Denver','CO',80201,200000.00,4,80562,0.40281,955,270,'1-Feb-22','Y','Divorce');
+INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (997953032,'Gonzalez','Laura','707 Cedar Ave','Denver','CO',80201,200000.00,4,80562,0.40281,955,270,'1-Feb-22','Y','Marital');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (424113125,'Wilson','Anthony','808 Birch Blvd','Seattle','WA',98101,275000.00,4.65,28256,0.102749091,1407,310,'1-Oct-24','N','');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (632403590,'Anderson','Rebecca','909 Maple Dr','Portland','OR',97201,320000.00,4.35,286774,0.89616875,1591,340,'1-Oct-24','N','');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (157758446,'Thomas','Daniel','1010 Oak St','Boston','MA',2101,150000.00,3.85,137252,0.915013333,879,230,'1-Oct-24','N','');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (432008011,'Taylor','Melissa','1111 Pine Rd','Las Vegas','NV',89101,400000.00,5,385621,0.9640525,2147,450,'1-Oct-24','N','');
-INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (723136345,'Moore','Joshua','1212 Cedar Ln','San Diego','CA',92101,275000.00,4.45,265266,0.964603636,1384,300,'1-Aug-20','Y','Job relocation');
+INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (723136345,'Moore','Joshua','1212 Cedar Ln','San Diego','CA',92101,275000.00,4.45,265266,0.964603636,1384,300,'1-Aug-20','Y','Unemployment');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (353555123,'Jackson','Kimberly','1313 Birch St','Austin','TX',73301,180000.00,3.95,174214,0.967855556,852,240,'1-Oct-24','N','');
-INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (610336202,'Martin','Kevin','1414 Maple Ave','Tampa','FL',33601,220000.00,4.15,123231,0.560140909,1069,260,'1-Jun-22','Y','Medical bills');
+INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (610336202,'Martin','Kevin','1414 Maple Ave','Tampa','FL',33601,220000.00,4.15,123231,0.560140909,1069,260,'1-Jun-22','Y','Medical expenses');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (817254072,'Lee','Amanda','1515 Oak Blvd','Orlando','FL',32801,310000.00,4.6,189658,0.6118,1589,330,'1-Oct-24','N','');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (915813726,'Perez','Brian','1616 Pine Dr','Charlotte','NC',28201,190000.00,4.05,177521,0.934321053,901,250,'1-Oct-24','N','');
-INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (853060616,'White','Stephanie','1717 Cedar St','Raleigh','NC',27601,250000.00,4.5,221563,0.886252,1267,280,'1-Jul-22','Y','Job loss');
+INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (853060616,'White','Stephanie','1717 Cedar St','Raleigh','NC',27601,250000.00,4.5,221563,0.886252,1267,280,'1-Jul-22','Y','Unemployment');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (606911942,'Harris','Patrick','1818 Birch Ave','Minneapolis','MN',55401,230000.00,4.2,214215,0.931369565,1123,270,'1-Oct-24','N','');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (489737273,'Clark','Jennifer','1919 Maple Blvd','St. Louis','MO',63101,275000.00,4.75,102569,0.372978182,1434,320,'1-Oct-24','N','');
 INSERT INTO active_loans (loan_num,bwr_last,bwr_first,address,city,st,zip,loan_amt,rate,upb,ltv,monthlyPI,monthlyEscrow,next_payment_due,delinquent,rfd) VALUES (508454862,'Rodriguez','Adam','2020 Oak Dr','Salt Lake City','UT',84101,320000.00,4.55,224856,0.702675,1574,350,'1-Oct-24','N','');

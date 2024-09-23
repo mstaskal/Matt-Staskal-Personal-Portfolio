@@ -1,7 +1,0 @@
-Game by game report:
-
-1) export game by game results per position
-2) create pivot table with weeks as columns
-3) if bye value = 0
-4) create league average record (don't include 0s)
-5) plot

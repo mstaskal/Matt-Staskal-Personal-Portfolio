@@ -1,0 +1,221 @@
+'''
+Using Python csv to create class of csv table, fill dictionary with csv table data, and print DML statements to fill DB tables
+'''
+
+import csv
+
+class Customers:
+    def __init__(self,cust_id,last,first,address,city,state,zip):
+        self.cust_id = cust_id
+        self.last = last
+        self.first = first
+        self.address = address
+        self.city = city
+        self.state = state
+        self.zip = zip
+
+with open(
+        'C:/Users/13199/Desktop/Matts/projects/loan_database/customers.csv') as cust_csv:
+    csv_reader = csv.reader(cust_csv, delimiter=',')
+    line_count = 0
+    cust_group = {}
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+            continue
+        cust_group[str(row[0])] = Customers(str(row[0]), str(row[1]), str(row[2]), str(row[3]), str(row[4]), str(row[5]), str(row[6]))
+
+
+    for key, value in cust_group.items():
+        print(f'INSERT INTO customers (cust_id,last,first,address,city,state,zip) '
+              f'VALUES ({cust_group[key].cust_id},\'{cust_group[key].last}\',\'{cust_group[key].first}\',\'{cust_group[key].address}\',\'{cust_group[key].city}\',\'{cust_group[key].state}\',{cust_group[key].zip});')
+
+
+###
+
+class Applications:
+    def __init__(self,app_id,loan_amt,prop_value,ltv,dti,fico,decision):
+        self.app_id = app_id
+        self.loan_amt = loan_amt
+        self.prop_value = prop_value
+        self.ltv = ltv
+        self.dti = dti
+        self.fico = fico
+        self.decision = decision
+
+with open(
+        'C:/Users/13199/Desktop/Matts/projects/loan_database/applications.csv') as cust_csv:
+    csv_reader = csv.reader(cust_csv, delimiter=',')
+    line_count = 0
+    app_group = {}
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+            continue
+        app_group[str(row[0])] = Applications(str(row[0]), row[1], row[2], row[3], row[4], row[5], str(row[6]))
+
+
+    for key, value in app_group.items():
+        print(f'INSERT INTO applications (app_id,loan_amt,prop_value,ltv,dti,fico,decision) '
+              f'VALUES ({app_group[key].app_id},{app_group[key].loan_amt},{app_group[key].prop_value},{app_group[key].ltv},{app_group[key].dti},{app_group[key].fico},\'{app_group[key].decision}\');')
+
+###
+
+class LoanCustomers:
+    def __init__(self,loan_num,cust_id,role):
+        self.loan_num = loan_num
+        self.cust_id = cust_id
+        self.role = role
+
+with open(
+        'C:/Users/13199/Desktop/Matts/projects/loan_database/loan_customers.csv') as cust_csv:
+    csv_reader = csv.reader(cust_csv, delimiter=',')
+    line_count = 0
+    lc_group = {}
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+            continue
+        lc_group[row[0]] = LoanCustomers(row[0], row[1], str(row[2]))
+
+
+    for key, value in lc_group.items():
+        print(f'INSERT INTO loan_customers (loan_num,cust_id,role) '
+              f'VALUES ({lc_group[key].loan_num},{lc_group[key].cust_id},\'{lc_group[key].role}\');')
+
+###
+
+class AppCustomers:
+    def __init__(self,app_id,cust_id,role):
+        self.app_id = app_id
+        self.cust_id = cust_id
+        self.role = role
+
+with open(
+        'C:/Users/13199/Desktop/Matts/projects/loan_database/application_customers.csv') as app_cust_csv:
+    csv_reader = csv.reader(app_cust_csv, delimiter=',')
+    line_count = 0
+    ac_group = {}
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+            continue
+        ac_group[row[0]] = AppCustomers(row[0], row[1], str(row[2]))
+
+
+    for key, value in ac_group.items():
+        print(f'INSERT INTO application_customers (app_id,cust_id,role) '
+              f'VALUES ({ac_group[key].app_id},{ac_group[key].cust_id},\'{ac_group[key].role}\');')
+
+###
+
+class ActiveLoans:
+    def __init__(self,loan_num,app_id,prop_addr,prop_city,prop_state,prop_zip,upb,rate,p_i,escrow,next_due,edq):
+        self.loan_num = loan_num
+        self.app_id = app_id
+        self.prop_addr = prop_addr
+        self.prop_city = prop_city
+        self.prop_state = prop_state
+        self.prop_zip = prop_zip
+        self.upb = upb
+        self.rate = rate
+        self.p_i = p_i
+        self.escrow = escrow
+        self.next_due = next_due
+        self.edq = edq
+
+with open(
+        'C:/Users/13199/Desktop/Matts/projects/loan_database/active_loans.csv') as loan_csv:
+    csv_reader = csv.reader(loan_csv, delimiter=',')
+    line_count = 0
+    loan_group = {}
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+            continue
+        loan_group[row[0]] = ActiveLoans(row[0], row[1], str(row[2]), str(row[3]), str(row[4]), row[5], row[6], row[7],row[8],row[9],str(row[10]),str(row[11]))
+
+
+    for key, value in loan_group.items():
+        print(f'INSERT INTO active_loans (loan_num,app_id,prop_addr,prop_city,prop_state,prop_zip,upb,rate,p_i,escrow,next_due,edq) '
+              f'VALUES ({loan_group[key].loan_num},{loan_group[key].app_id},\'{loan_group[key].prop_addr}\',\'{loan_group[key].prop_city}\',\'{loan_group[key].prop_state}\',{loan_group[key].prop_zip},{loan_group[key].upb},'
+              f'{loan_group[key].rate},{loan_group[key].p_i},{loan_group[key].escrow},\'{loan_group[key].next_due}\',\'{loan_group[key].edq}\');')
+
+###
+
+class RFDCodes:
+    def __init__(self,rfd,reason):
+        self.rfd = rfd
+        self.reason = reason
+
+with open(
+        'C:/Users/13199/Desktop/Matts/projects/loan_database/rfd_codes.csv') as rfd_csv:
+    csv_reader = csv.reader(rfd_csv, delimiter=',')
+    line_count = 0
+    rfd_group = {}
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+            continue
+        rfd_group[row[0]] = RFDCodes(row[0], str(row[1]))
+
+
+    for key, value in rfd_group.items():
+        print(f'INSERT INTO rfd_codes (rfd,reason) '
+              f'VALUES ({rfd_group[key].rfd},\'{rfd_group[key].reason}\');')
+
+###
+
+class WorkoutCodes:
+    def __init__(self,workout_code,workout_type):
+        self.workout_code = workout_code
+        self.workout_type = workout_type
+
+with open(
+        'C:/Users/13199/Desktop/Matts/projects/loan_database/workout_codes.csv') as wc_csv:
+    csv_reader = csv.reader(wc_csv, delimiter=',')
+    line_count = 0
+    wc_group = {}
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+            continue
+        wc_group[row[0]] = WorkoutCodes(row[0], str(row[1]))
+
+
+    for key, value in wc_group.items():
+        print(f'INSERT INTO workout_codes (workout_code,workout_type) '
+              f'VALUES ({wc_group[key].workout_code},\'{wc_group[key].workout_type}\');')
+
+###
+
+class Delinquencies:
+    def __init__(self,dq_id,loan_num,dq_amt,default_date,rfd,workout_code,cured,cure_date):
+        self.dq_id = dq_id
+        self.loan_num = loan_num
+        self.dq_amt = dq_amt
+        self.default_date = default_date
+        self.rfd = rfd
+        self.workout_code = workout_code
+        self.cured = cured
+        self.cure_date = cure_date
+
+with open(
+        'C:/Users/13199/Desktop/Matts/projects/loan_database/delinquencies.csv') as dq_csv:
+    csv_reader = csv.reader(dq_csv, delimiter=',')
+    line_count = 0
+    dq_group = {}
+    for row in csv_reader:
+        if line_count == 0:
+            line_count += 1
+            continue
+        dq_group[row[0]] = Delinquencies(row[0], row[1], row[2], str(row[3]), row[4], row[5], str(row[6]), str(row[7]))
+
+
+    for key, value in dq_group.items():
+        if dq_group[key].cure_date == 'NULL':
+            print(f'INSERT INTO delinquencies (dq_id,loan_num,dq_amt,default_date,rfd,workout_code,cured,cure_date) '
+                f'VALUES ({dq_group[key].dq_id},{dq_group[key].loan_num},{dq_group[key].dq_amt},\'{dq_group[key].default_date}\',{dq_group[key].rfd},{dq_group[key].workout_code},\'{dq_group[key].cured}\',{dq_group[key].cure_date});')
+        else:
+            print(f'INSERT INTO delinquencies (dq_id,loan_num,dq_amt,default_date,rfd,workout_code,cured,cure_date) '
+                  f'VALUES ({dq_group[key].dq_id},{dq_group[key].loan_num},{dq_group[key].dq_amt},\'{dq_group[key].default_date}\',{dq_group[key].rfd},{dq_group[key].workout_code},\'{dq_group[key].cured}\',\'{dq_group[key].cure_date}\');')

@@ -1,1 +1,76 @@
+--SQL statements to create tables for loan database--
+
+CREATE TABLE customers
+	(cust_id VARCHAR2(6),
+	last VARCHAR2(25),
+	first VARCHAR2(25),
+	address	VARCHAR2(60),
+	city VARCHAR2(25),
+	state CHAR(2),
+	zip VARCHAR2(12),
+		CONSTRAINT customers_cust_id_pk PRIMARY KEY (cust_id));
+
+CREATE TABLE applications
+	(app_id	VARCHAR2(10),
+	loan_amt NUMBER(11,2),
+	prop_value NUMBER(11,2),
+	ltv NUMBER(6,3),
+	dti NUMBER(6,3),
+	fico NUMBER(3),
+	decision VARCHAR2(10),
+		CONSTRAINT applications_app_id_ok PRIMARY KEY (app_id));
+
+CREATE TABLE active_loans 
+	(loan_num VARCHAR2(12),
+	app_id VARCHAR2(10),
+	prop_Addr VARCHAR2(60),
+	prop_City VARCHAR2(25),
+	prop_State CHAR(2),
+	prop_Zip VARCHAR2(12),
+	upb NUMBER(11,2),
+	rate NUMBER(6,3),
+	p_i NUMBER(11,2),
+	escrow NUMBER(11,2),
+	next_due DATE,
+	edq CHAR(1),
+		CONSTRAINT active_loans_loan_num_pk PRIMARY KEY (loan_num),
+		CONSTRAINT active_loans_app_id_fc FOREIGN KEY (app_id) REFERENCES applications(app_id));
+
+CREATE TABLE loan_customers
+	(loan_num VARCHAR2(12),
+	cust_id VARCHAR2(10),
+	role VARCHAR2(15),
+		CONSTRAINT loan_customers_loan_num_fk FOREIGN KEY (loan_num) REFERENCES active_loans(loan_num),
+		CONSTRAINT loan_customers_cust_id_fk FOREIGN KEY (cust_id) REFERENCES customers(cust_id));
+
+CREATE TABLE application_customers
+	(app_id VARCHAR2(10),
+	cust_id VARCHAR2(10),
+	role VARCHAR2(15),
+		CONSTRAINT application_customers_app_id_fk FOREIGN KEY (app_id) REFERENCES applications(app_id),
+		CONSTRAINT application_customers_cust_id_fk FOREIGN KEY (cust_id) REFERENCES customers(cust_id));
+
+CREATE TABLE rfd_codes
+	(rfd NUMBER(2),
+	reason VARCHAR2(30),
+		CONSTRAINT rfd_codes_rfd_pk PRIMARY KEY (rfd));
+
+CREATE TABLE workout_codes
+	(workout_code CHAR(3),
+	workout_type VARCHAR2(20),
+		CONSTRAINT workout_codes_workout_code_pk PRIMARY KEY (workout_code));
+
+CREATE TABLE delinquencies
+	(dq_id VARCHAR2(6),
+	loan_num VARCHAR2(12),
+	dq_amt NUMBER(11,2),
+	default_date DATE,
+	rfd NUMBER(2),
+	workout_code CHAR(3),
+	cured CHAR(1),
+	cure_date DATE,
+		CONSTRAINT delinquencies_dq_id_pk PRIMARY KEY (dq_id),
+		CONSTRAINT delinquencies_loan_num_fk FOREIGN KEY (loan_num) REFERENCES active_loans(loan_num),
+		CONSTRAINT delinquencies_rfd_fk FOREIGN KEY (rfd) REFERENCES rfd_codes(rfd),
+		CONSTRAINT delinquencies_workout_code_fk FOREIGN KEY (workout_code) REFERENCES workout_codes(workout_code);
 

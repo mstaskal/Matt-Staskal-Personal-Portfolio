@@ -1,0 +1,9 @@
+Creation of Fictional Mortgage Loan database:
+  - loan_database_er_diagram.pdf
+    E-R diagram describing tables in database and their relation
+  - loan_database_fill_tables_python.txt
+    Python script using CSV to read CSV table data, create a class for each table, create objects for each row, fill dictionary with row data, and print SQL INSERT INTO statements for each row
+  - loan_database_table_creation_sql
+    Oracle SQL DDL statements to create database tables
+  - loan_database_fill_tables_sql
+    Oracle SQL DML statements to fill tables with data

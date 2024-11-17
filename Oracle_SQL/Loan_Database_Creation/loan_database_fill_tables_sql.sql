@@ -1,3 +1,4 @@
+--SQL statements to fill loan database tables with data--
 --populate customers table--
 INSERT INTO customers (cust_id,last,first,address,city,state,zip) VALUES (122745,'Smith','John','14 Brindle St','Joliet','IL',60601);
 INSERT INTO customers (cust_id,last,first,address,city,state,zip) VALUES (767905,'Johnson','Sarah','100 24th Ave','Dallas','TX',77001);

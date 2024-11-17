@@ -1,0 +1,92 @@
+--Examples of using subqueries to retreive and analyze data--
+
+--Using single row subquery to list title and price of all books with retail price lower than the average book price--
+SELECT title, retail
+FROM books
+WHERE retail < (SELECT AVG(retail)
+                FROM books);
+
+--Using inline view to list books that cost less than the average cost of other books in the same category--
+SELECT b.title, b.cost, a.category, a.cataverage
+    FROM books b, (SELECT category, AVG(cost) cataverage
+                    FROM books
+                    GROUP by category) a
+    WHERE b.category = a.category
+    AND b.cost < a.cataverage;
+
+--Using group filtering and single row subquery to list which orders had a higher total amount due than order 1008--
+SELECT order#, SUM(quantity*paideach) "Total Amount Due"
+FROM orderitems
+GROUP BY order#
+HAVING SUM(quantity*paideach) > (SELECT SUM(quantity*paideach)
+                            FROM orderitems
+                            WHERE order# = 1008);
+
+--5--
+SELECT authorid, lname, fname, SUM(quantity) "Total Purchases"
+FROM orderitems
+    JOIN books USING (isbn)
+    JOIN bookauthor USING (isbn)
+    JOIN author USING (authorid)
+GROUP BY authorid, lname, fname
+HAVING SUM(quantity) = (SELECT MAX(SUM(quantity))
+                        FROM orderitems
+                            JOIN books USING(isbn)
+                            JOIN bookauthor USING (isbn)
+                            JOIN author USING (authorid)
+                        GROUP BY authorid);
+
+--6--
+SELECT title, category
+    FROM books
+    WHERE category IN (SELECT category
+                            FROM books
+                                JOIN orderitems USING (isbn)
+                                JOIN orders USING (order#)
+                                JOIN customers USING (customer#)
+                            WHERE customer# = 1007)
+    AND isbn NOT IN (SELECT isbn
+                            FROM books
+                                JOIN orderitems USING (isbn)
+                                JOIN orders USING (order#)
+                                JOIN customers USING (customer#)
+                            WHERE customer# = 1007);
+
+--7--
+--Not counting NULL values as a shipping delay--
+SELECT order#, shipcity, shipstate, shipdate-orderdate "Shipping Delay"
+FROM orders
+WHERE shipdate-orderdate = (SELECT MAX(shipdate-orderdate)
+                            FROM orders);
+
+--Counting NULL values as a shipping delay--
+SELECT order#, shipcity, shipstate, ROUND(NVL(shipdate,SYSDATE)-orderdate,0) "Shipping Delay"
+FROM orders
+WHERE NVL(shipdate,SYSDATE)-orderdate = (SELECT MAX(NVL(shipdate,SYSDATE)-orderdate)
+                            FROM orders);
+
+--8--
+SELECT customer#, lastname, firstname
+FROM customers
+    JOIN orders USING (customer#)
+    JOIN orderitems USING (order#)
+    JOIN books USING (isbn)
+WHERE retail = (SELECT MIN(retail)
+                FROM books);
+
+--9--
+SELECT COUNT (DISTINCT o.customer#) "No of Customers ordering books by James Austin"
+FROM orders o
+    JOIN orderitems oi ON o.order# = oi.order#
+    JOIN books b ON oi.isbn = b.isbn
+WHERE b.isbn IN (SELECT ba.isbn
+                FROM author a
+                JOIN bookauthor ba ON a.authorid = ba.authorid
+                WHERE a.authorid = 'A100');
+
+--10--
+SELECT *
+FROM books
+WHERE pubid = (SELECT pubid
+                FROM books
+                WHERE title = 'THE WOK WAY TO COOK');

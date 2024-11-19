@@ -1,20 +1,40 @@
+--Examples of using grouping to retrieve and analyze data--
 
+--Using grouping to determine the average profit of each order. Select the average total paid minus cost, grouped by order #--
 SELECT TO_CHAR(AVG(SUM((paideach-cost)*quantity)),'$999.99') "AVERAGE PROFIT OF ALL ORDERS"
 FROM orders 
     JOIN orderitems USING (order#)
     JOIN books USING (isbn)
 GROUP BY order#;
 
---7--
-SELECT customer#, lastname, COUNT(order#) "ORDERS PLACED"
+
+--Using grouping to list customers according to the count of orders placed--
+SELECT customer#, lastname, COUNT(DISTINCT order#) "ORDERS PLACED"
 FROM customers 
     JOIN orders USING (customer#)
 GROUP BY customer#, lastname
 ORDER BY customer#;
 
---8--
---The children category overall doesn't have an average retail cost of over $50 so does not get displayed in the results.
 
+--Using GROUP BY ROLLUP to display the number of titles published by each publisher by category and by publisher as a whole--
+SELECT name, category, COUNT(isbn)
+FROM publisher
+    JOIN books USING (pubid)
+    GROUP BY ROLLUP(name,category);
+
+
+--Using DECODE and GROUPING SETS to display the number of titles published by each publisher by category, category as a whole, publisher as a whole, and total of all publishers--
+SELECT
+    DECODE(GROUPING (name),1,'Category Total',name) "Name",
+    DECODE(GROUPING (category),1,'Publisher Total',category) "Category",
+    COUNT(title)
+FROM books
+    JOIN publisher USING (pubid)
+    GROUP BY
+    GROUPING SETS (name, category,(name,category),());
+
+
+--Using DECODE and CUBE grouping to display the average retail price of books by category as a whole, publisher as a whole, and publisher category, for 2 specific categories, where average price is over $50--
 SELECT
     DECODE(GROUPING(name),1,'CATEGORY AVERAGE',name) "PUBLISHER NAME",
     DECODE(GROUPING(category),1,'PUBLISHER AVERAGE',category) "CATEGORY", 
@@ -25,17 +45,8 @@ WHERE category IN ('CHILDREN','COMPUTER')
 GROUP BY CUBE (name,category)
 HAVING AVG(retail) > 50;
 
---9--
-SELECT customer#,lastname,firstname, state, TO_CHAR(SUM(paideach),'$999.99')"TOTAL PAID FOR ORDER"
-FROM customers 
-    JOIN orders USING (customer#)
-    JOIN orderitems USING (order#)
-WHERE state IN ('GA','FL')
-GROUP BY customer#,order#, lastname,firstname, state
-HAVING SUM(paideach) > 80
-ORDER BY customer#;
 
---or with duplicated customer names removed--
+--Using grouping to list the customers living in Georgia or Florida who have placed an order greater than $80--
 SELECT DISTINCT customer#,lastname,firstname, state
 FROM customers 
     JOIN orders USING (customer#)

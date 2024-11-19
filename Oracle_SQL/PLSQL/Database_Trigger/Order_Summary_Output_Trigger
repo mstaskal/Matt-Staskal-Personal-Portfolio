@@ -1,0 +1,53 @@
+--Creating a database trigger to output the details of all orders placed, after an order is placed on a single basket--
+
+create or replace TRIGGER order_summary_trg
+    FOR UPDATE OF orderplaced ON bb_basket
+    COMPOUND TRIGGER
+    TYPE basket_id_tbl IS TABLE OF bb_basket.idbasket%TYPE;
+    affected_baskets basket_id_tbl;
+    BEFORE STATEMENT IS
+    BEGIN
+        affected_baskets := basket_id_tbl();
+    END BEFORE STATEMENT;
+    AFTER EACH ROW IS
+    BEGIN
+        IF :OLD.orderplaced <>1 AND :NEW.orderplaced = 1 THEN
+            affected_baskets.EXTEND;
+            affected_baskets(affected_baskets.LAST) := :NEW.idbasket;
+        END IF;
+    END AFTER EACH ROW;
+    AFTER STATEMENT IS
+    BEGIN
+    FOR rec IN (
+            SELECT 
+                b.idbasket, 
+                bi.idproduct, 
+                p.productname, 
+                bi.price AS item_price, 
+                bi.quantity AS item_quantity, 
+                b.subtotal AS basket_subtotal, 
+                b.shipping, 
+                b.tax, 
+                b.total AS basket_total
+            FROM 
+                bb_product p
+                JOIN bb_basketitem bi ON p.idproduct = bi.idproduct
+                JOIN bb_basket b ON b.idbasket = bi.idbasket
+            WHERE 
+                b.orderplaced = 1
+            ORDER BY 
+                b.idbasket
+        ) LOOP
+        DBMS_OUTPUT.PUT_LINE('Basket ID: ' || rec.idbasket);
+        DBMS_OUTPUT.PUT_LINE('Product ID: ' || rec.idproduct);
+        DBMS_OUTPUT.PUT_LINE('Product Name: ' || rec.productname);
+        DBMS_OUTPUT.PUT_LINE('Item Price: ' || rec.item_price);
+        DBMS_OUTPUT.PUT_LINE('Item Quantity: ' || rec.item_quantity);
+        DBMS_OUTPUT.PUT_LINE('Basket Subtotal: ' || rec.basket_subtotal);
+        DBMS_OUTPUT.PUT_LINE('Shipping: ' || rec.shipping);
+        DBMS_OUTPUT.PUT_LINE('Tax: ' || rec.tax);
+        DBMS_OUTPUT.PUT_LINE('Basket Total: ' || rec.basket_total);
+        DBMS_OUTPUT.PUT_LINE('----------------------------------');
+        END LOOP;
+    END AFTER STATEMENT;
+END;   

@@ -1,4 +1,4 @@
---Examples of using grouping to retrieve and analyze data--
+--Examples of using functions to retrieve and analyze data--
 
 --Using INITCAP to capitalize the first letter of the selected column--
 SELECT INITCAP(lastname) || ',' || INITCAP(firstname) "Customer Name"

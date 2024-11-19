@@ -1,5 +1,5 @@
 --Using a cursor and bulk collection to calculate annual employee raises and update salary amounts in the employee table--
-  •Calculate 6% annual raises for all employees except the president
+  	•Calculate 6% annual raises for all employees except the president
 	•If a 6% raise totals more than $2,000, cap the raise at $2,000
 	•Update the salary for each employee in the table
 	•For each employee number, display the current annual salary, raise, and proposed new annual salary

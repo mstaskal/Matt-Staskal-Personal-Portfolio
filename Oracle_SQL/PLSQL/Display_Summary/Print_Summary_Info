@@ -1,2 +1,44 @@
 --Using a cursor and record variable to output summary information related to pledge payments made by donors--
+  *For each pledge payment from the donor, display the pledge ID, pledge amount, number of monthly payments, payment date, and payment amount. 
+  *List is sorted by pledge ID and then by payment date. For the first payment made for each pledge, “first payment” is displayed on that output row.
 
+DECLARE
+    lv_donor_num dd_pledge.iddonor%TYPE := 308;
+    CURSOR cur_payments IS
+        SELECT pa.idpledge, pl.pledgeamt, pl.paymonths, pa.paydate, pa.payamt, min.first_payment
+        FROM dd_payment pa, dd_pledge pl, (SELECT idpledge, MIN(paydate) first_payment
+                                            FROM dd_payment
+                                            GROUP BY idpledge) min 
+            WHERE pa.idpledge = pl.idpledge
+            AND pl.idpledge = min.idpledge
+            AND pl.iddonor = lv_donor_num
+            ORDER BY pa.idpledge, pa.paydate;
+    TYPE type_payments IS RECORD
+        (pledge_id dd_payment.idpledge%TYPE,
+        pledge_amt dd_pledge.pledgeamt%TYPE,
+        pay_mos dd_pledge.paymonths%TYPE,
+        pay_date dd_payment.paydate%TYPE,
+        pay_amt dd_payment.payamt%TYPE,
+        first_pmt dd_payment.paydate%TYPE);
+    rec_payments type_payments;
+    lv_first_txt VARCHAR2(15);
+    lv_pay_months_txt VARCHAR2(20);
+BEGIN
+    OPEN cur_payments;
+    LOOP
+    FETCH cur_payments INTO rec_payments;
+        EXIT WHEN cur_payments%NOTFOUND;
+        IF rec_payments.first_pmt = rec_payments.pay_date THEN
+            lv_first_txt := 'First Payment';
+        ELSE
+            lv_first_txt := NULL;
+        END IF;
+        IF rec_payments.pay_mos = 0 THEN
+            lv_pay_months_txt := 'One time';
+        ELSE
+            lv_pay_months_txt := rec_payments.pay_mos;
+        END IF;    
+    DBMS_OUTPUT.PUT_LINE('Pledge ID: ' || rec_payments.pledge_id || ' Pledge Total: ' || TO_CHAR(rec_payments.pledge_amt,'$9999.99') || ' Pay months: ' || lv_pay_months_txt || ' Payment Date: ' || rec_payments.pay_date || ' Payment Amount: ' || TO_CHAR(rec_payments.pay_amt,'$9999.99') || '    ' || lv_first_txt);
+    END LOOP;
+    CLOSE cur_payments;
+END;  

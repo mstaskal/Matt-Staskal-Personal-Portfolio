@@ -1,1 +1,46 @@
 
+SELECT TO_CHAR(AVG(SUM((paideach-cost)*quantity)),'$999.99') "AVERAGE PROFIT OF ALL ORDERS"
+FROM orders 
+    JOIN orderitems USING (order#)
+    JOIN books USING (isbn)
+GROUP BY order#;
+
+--7--
+SELECT customer#, lastname, COUNT(order#) "ORDERS PLACED"
+FROM customers 
+    JOIN orders USING (customer#)
+GROUP BY customer#, lastname
+ORDER BY customer#;
+
+--8--
+--The children category overall doesn't have an average retail cost of over $50 so does not get displayed in the results.
+
+SELECT
+    DECODE(GROUPING(name),1,'CATEGORY AVERAGE',name) "PUBLISHER NAME",
+    DECODE(GROUPING(category),1,'PUBLISHER AVERAGE',category) "CATEGORY", 
+    TO_CHAR(AVG(retail),'$999.99')"AVERAGE RETAIL COST"  
+FROM publisher
+    JOIN books USING (pubid)
+WHERE category IN ('CHILDREN','COMPUTER')
+GROUP BY CUBE (name,category)
+HAVING AVG(retail) > 50;
+
+--9--
+SELECT customer#,lastname,firstname, state, TO_CHAR(SUM(paideach),'$999.99')"TOTAL PAID FOR ORDER"
+FROM customers 
+    JOIN orders USING (customer#)
+    JOIN orderitems USING (order#)
+WHERE state IN ('GA','FL')
+GROUP BY customer#,order#, lastname,firstname, state
+HAVING SUM(paideach) > 80
+ORDER BY customer#;
+
+--or with duplicated customer names removed--
+SELECT DISTINCT customer#,lastname,firstname, state
+FROM customers 
+    JOIN orders USING (customer#)
+    JOIN orderitems USING (order#)
+WHERE state IN ('GA','FL')
+GROUP BY customer#,order#, lastname,firstname, state
+HAVING SUM(paideach) > 80
+ORDER BY customer#;

@@ -1,12 +1,61 @@
---1--
---a
+--Examples of using joins to retreive and analyze data--
+
+--INNER JOIN--
+--ANSI
 SELECT b.title, p.name PUBLISHER, p.contact "PUBLISHER CONTACT", p.phone "PUBLISHER CONTACT PH#"
 	FROM books b, publisher p
 	WHERE b.pubid = p.pubid;
 
---b
+--Non-ANSI
 SELECT b.title, p.name PUBLISHER, p.contact "PUBLISHER CONTACT", p.phone "PUBLISHER CONTACT PH#"
-	FROM books b JOIN publisher p USING (pubid);
+	FROM books b INNER JOIN publisher p USING (pubid);
+
+
+--LEFT OUTER JOIN--
+--ANSI
+SELECT b.title, b.isbn, c.state, o.order#
+FROM books b, orderitems oi, orders o, customers c
+    WHERE b.isbn = oi.isbn (+)
+    AND oi.order# = o.order# (+)
+    AND o.customer# = c.customer# (+)
+        ORDER BY 1;
+
+--Non-ANSI
+SELECT b.title, b.isbn, c.state, o.order#
+	FROM books b LEFT OUTER JOIN orderitems oi ON b.isbn = oi.isbn
+                LEFT JOIN orders o ON oi.order# = o.order#
+                LEFT JOIN customers c ON o.customer# = c.customer#
+                    ORDER BY 1;
+
+
+--RIGHT OUTER JOIN--
+--ANSI
+SELECT c.lastname, c.firstname, o.order#
+FROM customers c RIGHT OUTER JOIN orders o
+	WHERE c.customer# = o.customer#
+		ORDER BY c.lastname, c.firstname;
+
+--Non-ANSI
+SELECT c.lastname, c.firstname, o.order#
+FROM customers c RIGHT OUTER JOIN orders o
+	USING (customer#)
+	ORDER BY c.lastname, c.firstname;
+
+--FULL JOIN--
+--ANSI
+SELECT c.lastname, c.firstname, o.order#
+FROM customers c FULL JOIN orders o
+	WHERE c.customer# = o.customer#
+		ORDER BY c.lastname, c.firstname;
+
+--Non-ANSI
+SELECT c.lastname, c.firstname, o.order#
+FROM customers c FULL JOIN orders o
+	USING (customer#)
+	ORDER BY c.lastname, c.firstname;
+
+
+
 
 --2--
 --a
@@ -150,22 +199,6 @@ SELECT a.lname || ',' || a.fname "AUTHOR NAME", b.title, c.lastname || ',' || c.
         JOIN author a USING (authorid)
             WHERE c.lastname = 'NELSON'
             AND c.firstname = 'BECCA';
-
---9--
---a
-SELECT b.title, b.isbn, c.state, o.order#
-FROM books b, orderitems oi, orders o, customers c
-    WHERE b.isbn = oi.isbn (+)
-    AND oi.order# = o.order# (+)
-    AND o.customer# = c.customer# (+)
-        ORDER BY 1;
-
---b
-SELECT b.title, b.isbn, c.state, o.order#
-	FROM books b LEFT JOIN orderitems oi ON b.isbn = oi.isbn
-                LEFT JOIN orders o ON oi.order# = o.order#
-                LEFT JOIN customers c ON o.customer# = c.customer#
-                    ORDER BY 1;
 
 --10--
 --a

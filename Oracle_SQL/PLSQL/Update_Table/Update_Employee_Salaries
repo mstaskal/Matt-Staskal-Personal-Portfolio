@@ -1,1 +1,43 @@
 --Using a cursor and bulk collection to calculate annual employee raises and update salary amounts in the employee table--
+  •Calculate 6% annual raises for all employees except the president
+	•If a 6% raise totals more than $2,000, cap the raise at $2,000
+	•Update the salary for each employee in the table
+	•For each employee number, display the current annual salary, raise, and proposed new annual salary
+	•Following the details for each employee, show the total cost of all employees’ salary increases for the company
+
+
+DECLARE
+    lv_raise_pct_num NUMBER(3,2);
+    lv_raise_amt_num employee.sal%TYPE;
+    lv_new_sal_num employee.sal%TYPE;
+    lv_raise_total_num employee.sal%TYPE := 0;
+    CURSOR cur_emp IS
+        SELECT *
+        FROM employee;
+    TYPE type_emp IS TABLE OF cur_emp%ROWTYPE
+        INDEX BY PLS_INTEGER;
+    tbl_emp type_emp;
+BEGIN
+    OPEN cur_emp;
+    FETCH cur_emp
+        BULK COLLECT INTO tbl_emp;
+    FOR i IN 1..tbl_emp.COUNT LOOP
+        IF tbl_emp(i).job <> 'PRESIDENT' THEN
+            lv_raise_pct_num := .06;
+        ELSE
+            lv_raise_pct_num := 0;
+        END IF;
+        lv_raise_amt_num := lv_raise_pct_num * tbl_emp(i).sal;
+        IF lv_raise_amt_num > 2000 THEN
+            lv_raise_amt_num := 2000;
+        END IF;
+        lv_new_sal_num := tbl_emp(i).sal + lv_raise_amt_num;
+        lv_raise_total_num := lv_raise_total_num + lv_raise_amt_num;
+        DBMS_OUTPUT.PUT_LINE(tbl_emp(i).ename || '  ' || tbl_emp(i).job || '  ' || 'current salary: ' || tbl_emp(i).sal || ' raise %: ' || lv_raise_pct_num || ' raise amt: ' || lv_raise_amt_num || ' new salary: ' || lv_new_sal_num);
+        UPDATE employee
+            SET sal = lv_new_sal_num
+            WHERE empno = tbl_emp(i).empno;
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('Total increase in company salaries: ' || lv_raise_total_num);
+    CLOSE cur_emp;
+END;    

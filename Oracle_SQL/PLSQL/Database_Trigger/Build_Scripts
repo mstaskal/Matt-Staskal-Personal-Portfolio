@@ -1,4 +1,4 @@
-
+--Scripts needed to build tables used in Trigger--
 
 DROP VIEW bb_basketitem_vu;
 DROP VIEW bb_ship_vu;

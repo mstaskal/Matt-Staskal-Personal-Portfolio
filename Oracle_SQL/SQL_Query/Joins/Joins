@@ -41,66 +41,35 @@ FROM customers c RIGHT OUTER JOIN orders o
 	USING (customer#)
 	ORDER BY c.lastname, c.firstname;
 
---FULL JOIN--
+
+--SELF JOIN--
 --ANSI
-SELECT c.lastname, c.firstname, o.order#
-FROM customers c FULL JOIN orders o
-	WHERE c.customer# = o.customer#
-		ORDER BY c.lastname, c.firstname;
+SELECT e.lname || ',' || e.fname "EMPLOYEE NAME", e.job "JOB TITLE", m.fname || ' ' || m.lname "MANAGER NAME"
+FROM employees e, employees m
+    WHERE e.mgr = m.empno (+);
 
 --Non-ANSI
-SELECT c.lastname, c.firstname, o.order#
-FROM customers c FULL JOIN orders o
-	USING (customer#)
-	ORDER BY c.lastname, c.firstname;
+SELECT e.lname || ',' || e.fname "EMPLOYEE NAME", e.job "JOB TITLE", m.fname || ' ' || m.lname "MANAGER NAME"
+FROM employees e LEFT JOIN employees m
+    ON e.mgr = m.empno;
 
 
+--NON-EQUALITY INNER JOIN--
+--ANSI
+SELECT b.title, b.retail, p.gift, p.minretail, p.maxretail
+FROM books b, promotion p
+    WHERE b.retail BETWEEN p.minretail AND p.maxretail
+    AND b.title = 'SHORTEST POEMS';
+
+--Non-ANSI
+SELECT b.title, b.retail, p.gift, p.minretail, p.maxretail
+FROM books b JOIN promotion p
+    ON b.retail BETWEEN p.minretail AND p.maxretail
+    WHERE b.title = 'SHORTEST POEMS';
 
 
---2--
---a
-SELECT o.order#, o.orderdate, o.customer#, c.lastname || ',' || c.firstname "CUSTOMER NAME"
-    FROM orders o, customers c
-    WHERE o.customer# = c.customer#
-    AND o.shipdate IS NULL
-    ORDER BY 2;
-
---b
-SELECT o.order#, o.orderdate, customer#, c.lastname || ',' || c.firstname "CUSTOMER NAME"
-    FROM orders o JOIN customers c USING (customer#)
-    WHERE shipdate IS NULL
-    ORDER BY 2;
-
---3--
---a
-SELECT c.lastname || ',' || c.firstname "CUSTOMER NAME", c.state "CUSTOMER STATE", o.order#, b.title, b.category
-    FROM customers c, orders o, orderitems oi, books b
-    WHERE c.customer# = o.customer#
-    AND o.order# = oi.order#
-    AND oi.isbn = b.isbn
-        AND b.category = 'COMPUTER'
-        AND c.state = 'FL';
-
---b
-SELECT c.lastname || ',' || c.firstname "CUSTOMER NAME", c.state "CUSTOMER STATE", order#, b.title, b.category
-    FROM customers c JOIN orders o USING (customer#)
-        JOIN orderitems oi USING (order#)
-        JOIN books b USING (isbn)
-    WHERE b.category = 'COMPUTER'
-    AND c.state = 'FL';
-
---4--
---a
-SELECT DISTINCT c.lastname, c.firstname, b.title
-FROM customers c,orders o, orderitems oi, books b
-    WHERE c.customer# = o.customer#
-    AND o.order# = oi.order#
-    AND oi.isbn = b.isbn
-        AND c.lastname = 'LUCAS'
-	AND c.firstname = 'JAKE';
-     
---OR--        
-        
+--UNION--
+--ANSI        
 SELECT c.lastname, c.firstname, b.title
 FROM customers c,orders o, orderitems oi, books b
     WHERE c.customer# = o.customer#
@@ -115,15 +84,7 @@ FROM customers c,orders o, orderitems oi, books b
     AND oi.isbn = b.isbn
         AND c.lastname = 'LUCAS';
 
---b
-SELECT DISTINCT c.lastname, c.firstname, b.title
-FROM customers c JOIN orders o USING (customer#)
-    JOIN orderitems oi using (order#)
-    JOIN books b using (isbn)
-        WHERE c.lastname = 'LUCAS';
-     
---OR--        
-        
+--Non-ANSI   
 SELECT c.lastname, c.firstname, b.title
 FROM customers c JOIN orders o USING (customer#)
     JOIN orderitems oi using (order#)
@@ -136,77 +97,22 @@ FROM customers c JOIN orders o USING (customer#)
     JOIN books b using (isbn)
         WHERE c.lastname = 'LUCAS';
 
---5--
---a
-SELECT c.lastname, c.firstname, b.title, (oi.paideach - b.cost) "ITEM PROFIT"
-FROM customers c,orders o, orderitems oi, books b
+
+--INNER JOIN with filtered conditions--
+--ANSI
+SELECT c.lastname || ',' || c.firstname "CUSTOMER NAME", c.state "CUSTOMER STATE", o.order#, b.title, b.category
+    FROM customers c, orders o, orderitems oi, books b
     WHERE c.customer# = o.customer#
     AND o.order# = oi.order#
     AND oi.isbn = b.isbn
-        AND c.lastname = 'LUCAS';
+        AND b.category = 'COMPUTER'
+        AND c.state = 'FL';
 
---b
-SELECT c.lastname, c.firstname, b.title, (oi.paideach - b.cost) "ITEM PROFIT"
-FROM customers c JOIN orders o USING (customer#)
-    JOIN orderitems oi using (order#)
-    JOIN books b using (isbn)
-        WHERE c.lastname = 'LUCAS';
-
---6--
---a
-SELECT b.title, a.lname, a.fname
-FROM books b, bookauthor ba, author a
-    WHERE b.isbn = ba.isbn
-    AND ba.authorid = a.authorid
-    AND a.lname = 'ADAMS';
-
---b
-SELECT b.title, a.lname, a.fname
-FROM books b JOIN bookauthor ba USING (isbn)
-    JOIN author a USING (authorid)
-        WHERE a.lname = 'ADAMS';
-
---7--
---a
-SELECT b.title, b.retail, p.gift, p.minretail, p.maxretail
-FROM books b, promotion p
-    WHERE b.retail BETWEEN p.minretail AND p.maxretail
-    AND b.title = 'SHORTEST POEMS';
-
---b
-SELECT b.title, b.retail, p.gift, p.minretail, p.maxretail
-FROM books b JOIN promotion p
-    ON b.retail BETWEEN p.minretail AND p.maxretail
-    WHERE b.title = 'SHORTEST POEMS';
-
---8--
---a
-SELECT a.lname || ',' || a.fname "AUTHOR NAME", b.title, c.lastname || ',' || c.firstname "CUSTOMER NAME"
-    FROM customers c, orders o, orderitems oi, books b, bookauthor ba, author a
-        WHERE c.customer# = o.customer#
-        AND o.order# = oi.order#
-        AND oi.isbn = b.isbn
-        AND b.isbn = ba.isbn
-        AND ba.authorid = a.authorid
-            AND c.lastname = 'NELSON'
-            AND c.firstname = 'BECCA';
---b
-SELECT a.lname || ',' || a.fname "AUTHOR NAME", b.title, c.lastname || ',' || c.firstname "CUSTOMER NAME"
+--Non-ANSI
+SELECT c.lastname || ',' || c.firstname "CUSTOMER NAME", c.state "CUSTOMER STATE", order#, b.title, b.category
     FROM customers c JOIN orders o USING (customer#)
         JOIN orderitems oi USING (order#)
         JOIN books b USING (isbn)
-        JOIN bookauthor ba USING (isbn)
-        JOIN author a USING (authorid)
-            WHERE c.lastname = 'NELSON'
-            AND c.firstname = 'BECCA';
+    WHERE b.category = 'COMPUTER'
+    AND c.state = 'FL';
 
---10--
---a
-SELECT e.lname || ',' || e.fname "EMPLOYEE NAME", e.job "JOB TITLE", m.fname || ' ' || m.lname "MANAGER NAME"
-FROM employees e, employees m
-    WHERE e.mgr = m.empno (+);
-
---b
-SELECT e.lname || ',' || e.fname "EMPLOYEE NAME", e.job "JOB TITLE", m.fname || ' ' || m.lname "MANAGER NAME"
-FROM employees e LEFT JOIN employees m
-    ON e.mgr = m.empno;

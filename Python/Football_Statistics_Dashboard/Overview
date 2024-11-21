@@ -1,6 +1,10 @@
 Using Python to create Fantasy Football Player Information Dashboard
   -Source code, data files, PDF slids, and video presentation included in folders
 
+**View the following to see presentations of dashboard**:
+  MS_PlayerDashboard.mp4
+  MS_PlayerDashboard.pdf
+
 GUI display created using TKinter
   - Search function to search for players or teams
   - Overview of scoring system used, and source of data

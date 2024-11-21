@@ -1,1 +1,15 @@
+Using Python to create Fantasy Football Player Information Dashboard
+  -Source code, data files, PDF slids, and video presentation included in folders
 
+GUI display created using TKinter
+  - Search function to search for players or teams
+  - Overview of scoring system used, and source of data
+  - Dashboard will display player details, 2023 season total statistics, team logo, and offer 3 charts created using matplotlib
+        - Scoring distribution bar chart displaying the percentage of total points scored via each possible scoring category
+              - This helps understand the style of play
+              - Chart includes line plot representing league average for comparison
+        - Scoring Consistency scatter plot displaying StDev of player weekly scoring by total points per game, vs. the rest of the league
+              - Higher StDev indicates more "up and down" scoring, while lower StDev indicates more consistency week-to-week
+              - This helps you understand if a player carries high risk with low reward, low risk with high reward, etc.
+        - Cumulative season total line plot displaying cumulative total points scored throughout the 2023 season
+              - Clear visual representation of how the 2023 season played out for the player

@@ -1,0 +1,2 @@
+ffb_ppr_dashboard_class_definitions: class definitions to create tkinter GUI. User can search for a player and program will display player statistics and statistical analysis charts
+ffb_ppr_dashboard_driver: driver code for running program

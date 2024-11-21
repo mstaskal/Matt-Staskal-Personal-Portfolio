@@ -1,5 +1,6 @@
-Using Python and json module to collect, clean and prepare data to be used in analysis
+Using Python and json module to collect, clean and prepare data to be used in analysis program
 - Download data from fantasydata.com
 - Import data into Python
-- Format data into dictionary using json module
-- Write to final file to be used in analysis program
+- Format into dictionary using json module
+- Write to final file
+- Create collections of data from final files to be used in program

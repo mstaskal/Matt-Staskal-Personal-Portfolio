@@ -1,2 +1,173 @@
 #Using Python to clean and analyze medical data
 
+#source medical data
+medical_data = \
+"""Marina Allison   ,27   ,   31.1 , 
+#7010.0   ;Markus Valdez   ,   30, 
+22.4,   #4050.0 ;Connie Ballard ,43 
+,   25.3 , #12060.0 ;Darnell Weber   
+,   35   , 20.6   , #7500.0;
+Sylvie Charles   ,22, 22.1 
+,#3022.0   ;   Vinay Padilla,24,   
+26.9 ,#4620.0 ;Meredith Santiago, 51   , 
+29.3 ,#16330.0;   Andre Mccarty, 
+19,22.7 , #2900.0 ; 
+Lorena Hodson ,65, 33.1 , #19370.0; 
+Isaac Vu ,34, 24.8,   #7045.0"""
+
+#replace # with $ in insurance costs
+updated_medical_data = medical_data.replace('#','$')
+print(updated_medical_data)
+
+#count the number of records
+print('\n')
+num_records = 0
+
+for i in updated_medical_data:
+  if i == '$':
+    num_records += 1
+
+print(f'There are {num_records} medical records in the data')
+
+#convert string of records into single list
+print('\n')
+medical_data_split = updated_medical_data.split(';')
+print(medical_data_split)
+
+#create individual list of each patient's record
+print('\n')
+medical_records = []
+
+for record in medical_data_split:
+  medical_records.append(record.split(','))
+print(medical_records)
+
+#remove whitespace and line breaks from each record
+print('\n')
+medical_records_clean = []
+
+for record in medical_records:
+  record_clean = []
+  for item in record:
+    record_clean.append(item.strip())
+  medical_records_clean.append(record_clean)
+
+print(medical_records_clean)
+
+#print all names in upper case
+print('\n')
+for record in medical_records_clean:
+  print(record[0].upper())
+
+#store record types in individual lists
+print('\n')
+names = []
+ages = []
+bmis = []
+insurance_costs = []
+
+for record in medical_records_clean:
+  names.append(record[0])
+  ages.append(record[1])
+  bmis.append(record[2])
+  insurance_costs.append(record[3])
+
+print(names)
+print(ages)
+print(bmis)
+print(insurance_costs)
+
+#calculate average bmi
+print('\n')
+total_bmi = 0
+
+for bmi in bmis:
+  total_bmi += float(bmi)
+
+print(total_bmi)
+print(type(total_bmi))
+average_bmi = round(total_bmi/len(bmis),2)
+print(f'Average BMI: {average_bmi}')
+
+#calculate average insurance cost
+print('\n')
+insurance_costs_num = [record.strip('$') for record in insurance_costs]
+insurance_costs_total = 0
+
+for num in insurance_costs_num:
+  insurance_costs_total += float(num)
+
+average_insurance_cost = round(insurance_costs_total/len(insurance_costs_num),2)
+
+print(f'Average Insurance Cost: ${average_insurance_cost}')
+
+#print out record details
+print('\n')
+for i in range(0,len(names)):
+  print(f'{names[i]} is {ages[i]} years old with a BMI of {bmis[i]} and an insurance cost of {insurance_costs[i]}')
+
+
+#OUTPUT:
+Marina Allison   ,27   ,   31.1 , 
+$7010.0   ;Markus Valdez   ,   30, 
+22.4,   $4050.0 ;Connie Ballard ,43 
+,   25.3 , $12060.0 ;Darnell Weber   
+,   35   , 20.6   , $7500.0;
+Sylvie Charles   ,22, 22.1 
+,$3022.0   ;   Vinay Padilla,24,   
+26.9 ,$4620.0 ;Meredith Santiago, 51   , 
+29.3 ,$16330.0;   Andre Mccarty, 
+19,22.7 , $2900.0 ; 
+Lorena Hodson ,65, 33.1 , $19370.0; 
+Isaac Vu ,34, 24.8,   $7045.0
+
+
+There are 10 medical records in the data
+
+
+['Marina Allison   ,27   ,   31.1 , \n$7010.0   ', 'Markus Valdez   ,   30, \n22.4,   $4050.0 ', 'Connie Ballard ,43 \n,   25.3 , $12060.0 ', 'Darnell Weber   \n,   35   , 20.6   , $7500.0', '\nSylvie Charles   ,22, 22.1 \n,$3022.0   ', '   Vinay Padilla,24,   \n26.9 ,$4620.0 ', 'Meredith Santiago, 51   , \n29.3 ,$16330.0', '   Andre Mccarty, \n19,22.7 , $2900.0 ', ' \nLorena Hodson ,65, 33.1 , $19370.0', ' \nIsaac Vu ,34, 24.8,   $7045.0']
+
+
+[['Marina Allison   ', '27   ', '   31.1 ', ' \n$7010.0   '], ['Markus Valdez   ', '   30', ' \n22.4', '   $4050.0 '], ['Connie Ballard ', '43 \n', '   25.3 ', ' $12060.0 '], ['Darnell Weber   \n', '   35   ', ' 20.6   ', ' $7500.0'], ['\nSylvie Charles   ', '22', ' 22.1 \n', '$3022.0   '], ['   Vinay Padilla', '24', '   \n26.9 ', '$4620.0 '], ['Meredith Santiago', ' 51   ', ' \n29.3 ', '$16330.0'], ['   Andre Mccarty', ' \n19', '22.7 ', ' $2900.0 '], [' \nLorena Hodson ', '65', ' 33.1 ', ' $19370.0'], [' \nIsaac Vu ', '34', ' 24.8', '   $7045.0']]
+
+
+[['Marina Allison', '27', '31.1', '$7010.0'], ['Markus Valdez', '30', '22.4', '$4050.0'], ['Connie Ballard', '43', '25.3', '$12060.0'], ['Darnell Weber', '35', '20.6', '$7500.0'], ['Sylvie Charles', '22', '22.1', '$3022.0'], ['Vinay Padilla', '24', '26.9', '$4620.0'], ['Meredith Santiago', '51', '29.3', '$16330.0'], ['Andre Mccarty', '19', '22.7', '$2900.0'], ['Lorena Hodson', '65', '33.1', '$19370.0'], ['Isaac Vu', '34', '24.8', '$7045.0']]
+
+
+MARINA ALLISON
+MARKUS VALDEZ
+CONNIE BALLARD
+DARNELL WEBER
+SYLVIE CHARLES
+VINAY PADILLA
+MEREDITH SANTIAGO
+ANDRE MCCARTY
+LORENA HODSON
+ISAAC VU
+
+
+['Marina Allison', 'Markus Valdez', 'Connie Ballard', 'Darnell Weber', 'Sylvie Charles', 'Vinay Padilla', 'Meredith Santiago', 'Andre Mccarty', 'Lorena Hodson', 'Isaac Vu']
+['27', '30', '43', '35', '22', '24', '51', '19', '65', '34']
+['31.1', '22.4', '25.3', '20.6', '22.1', '26.9', '29.3', '22.7', '33.1', '24.8']
+['$7010.0', '$4050.0', '$12060.0', '$7500.0', '$3022.0', '$4620.0', '$16330.0', '$2900.0', '$19370.0', '$7045.0']
+
+
+258.3
+<class 'float'>
+Average BMI: 25.83
+
+
+Average Insurance Cost: $8390.7
+
+
+Marina Allison is 27 years old with a BMI of 31.1 and an insurance cost of $7010.0
+Markus Valdez is 30 years old with a BMI of 22.4 and an insurance cost of $4050.0
+Connie Ballard is 43 years old with a BMI of 25.3 and an insurance cost of $12060.0
+Darnell Weber is 35 years old with a BMI of 20.6 and an insurance cost of $7500.0
+Sylvie Charles is 22 years old with a BMI of 22.1 and an insurance cost of $3022.0
+Vinay Padilla is 24 years old with a BMI of 26.9 and an insurance cost of $4620.0
+Meredith Santiago is 51 years old with a BMI of 29.3 and an insurance cost of $16330.0
+Andre Mccarty is 19 years old with a BMI of 22.7 and an insurance cost of $2900.0
+Lorena Hodson is 65 years old with a BMI of 33.1 and an insurance cost of $19370.0
+Isaac Vu is 34 years old with a BMI of 24.8 and an insurance cost of $7045.0
+

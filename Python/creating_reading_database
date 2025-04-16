@@ -1,15 +1,4 @@
-"""
-* Name         : m7t2_creating_reading_database_data_assignment.py
-* Author       : Matt Staskal
-* Created      : 02/20/25
-* Module       : 7
-* Topic        : 2
-* Description  : Populate the database created in the previous assignment with data
-*
-* Academic Honesty: I attest that this is my original work.
-* I have not used unauthorized source code, either modified or
-* unmodified.
-"""
+Description  : Create a database of weather information, populate it with data, read the data into a Pandas dataframe, and create a visual
 
 import sqlite3
 from sqlite3 import Error
@@ -40,22 +29,20 @@ weather_db = 'weather_tracking.db'
 weatherdb_conn = create_connection(weather_db)
 weatherdb_cur = weatherdb_conn.cursor()
 
-#Code required to create tables if necessary, currently commented out
-"""
-location_table = """"""CREATE TABLE IF NOT EXISTS Location(
+location_table = """CREATE TABLE IF NOT EXISTS Location(
                         county text PRIMARY KEY,
-                        state text);""""""
+                        state text);"""
 execute_single(weatherdb_conn,location_table)
 
-precipitation_table = """"""CREATE TABLE IF NOT EXISTS Precipitation(
+precipitation_table = """CREATE TABLE IF NOT EXISTS Precipitation(
                             location text, 
                             date text,
                             precipitation real,
                             precip_type text,
                                 FOREIGN KEY(location) REFERENCES Location(county)
-                            );""""""
+                            );"""
 execute_single(weatherdb_conn,precipitation_table)
-"""
+
 
 #create data to enter into DB
 ak_full = pd.read_csv("anchorage_ak_noaa_2024.csv")

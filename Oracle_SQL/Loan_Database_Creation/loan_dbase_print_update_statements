@@ -15,7 +15,7 @@ class Customers:
         self.zip = zip
 
 with open(
-        'C:/Users/13199/Desktop/Matts/projects/loan_database/customers.csv') as cust_csv:
+        'customers.csv') as cust_csv:
     csv_reader = csv.reader(cust_csv, delimiter=',')
     line_count = 0
     cust_group = {}
@@ -44,7 +44,7 @@ class Applications:
         self.decision = decision
 
 with open(
-        'C:/Users/13199/Desktop/Matts/projects/loan_database/applications.csv') as cust_csv:
+        'applications.csv') as cust_csv:
     csv_reader = csv.reader(cust_csv, delimiter=',')
     line_count = 0
     app_group = {}
@@ -68,7 +68,7 @@ class LoanCustomers:
         self.role = role
 
 with open(
-        'C:/Users/13199/Desktop/Matts/projects/loan_database/loan_customers.csv') as cust_csv:
+        'loan_customers.csv') as cust_csv:
     csv_reader = csv.reader(cust_csv, delimiter=',')
     line_count = 0
     lc_group = {}
@@ -92,7 +92,7 @@ class AppCustomers:
         self.role = role
 
 with open(
-        'C:/Users/13199/Desktop/Matts/projects/loan_database/application_customers.csv') as app_cust_csv:
+        'application_customers.csv') as app_cust_csv:
     csv_reader = csv.reader(app_cust_csv, delimiter=',')
     line_count = 0
     ac_group = {}
@@ -125,7 +125,7 @@ class ActiveLoans:
         self.edq = edq
 
 with open(
-        'C:/Users/13199/Desktop/Matts/projects/loan_database/active_loans.csv') as loan_csv:
+        'active_loans.csv') as loan_csv:
     csv_reader = csv.reader(loan_csv, delimiter=',')
     line_count = 0
     loan_group = {}
@@ -149,7 +149,7 @@ class RFDCodes:
         self.reason = reason
 
 with open(
-        'C:/Users/13199/Desktop/Matts/projects/loan_database/rfd_codes.csv') as rfd_csv:
+        'rfd_codes.csv') as rfd_csv:
     csv_reader = csv.reader(rfd_csv, delimiter=',')
     line_count = 0
     rfd_group = {}
@@ -172,7 +172,7 @@ class WorkoutCodes:
         self.workout_type = workout_type
 
 with open(
-        'C:/Users/13199/Desktop/Matts/projects/loan_database/workout_codes.csv') as wc_csv:
+        'workout_codes.csv') as wc_csv:
     csv_reader = csv.reader(wc_csv, delimiter=',')
     line_count = 0
     wc_group = {}
@@ -201,7 +201,7 @@ class Delinquencies:
         self.cure_date = cure_date
 
 with open(
-        'C:/Users/13199/Desktop/Matts/projects/loan_database/delinquencies.csv') as dq_csv:
+        'delinquencies.csv') as dq_csv:
     csv_reader = csv.reader(dq_csv, delimiter=',')
     line_count = 0
     dq_group = {}

@@ -1,5 +1,5 @@
 '''
-Using Python csv to create class of csv table, fill dictionary with csv table data, and print DML statements to fill DB tables
+Using Python to print SQL statements to insert data into table
 '''
 
 import csv

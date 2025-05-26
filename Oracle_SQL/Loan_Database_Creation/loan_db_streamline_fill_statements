@@ -1,1 +1,50 @@
 #Using Python to fill tables from csv directly rather than printing insert statements
+
+import sqlite3
+from sqlite3 import Error
+import csv
+import pandas as pd
+
+def create_connection(database):
+    conn = None
+    try:
+        conn = sqlite3.connect(database)
+        return conn
+    except Error:
+        print(Error)
+    return conn
+
+db = 'loan_database.db'
+database_connection = create_connection(db)
+cursor = database_connection.cursor()
+
+#fill each table
+customer_data = pd.read_csv("customers.csv")
+customer_to_db = [(customer_data.iloc[i,0], customer_data.iloc[i,1],customer_data.iloc[i,2],customer_data.iloc[i,3],customer_data.iloc[i,4],customer_data.iloc[i,5],customer_data.iloc[i,6]) for i in range(len(customer_data))]
+cursor.executemany("INSERT INTO Customers (cust_id, last, first, address, city, state, zip) VALUES (?,?,?,?,?,?,?);",customer_to_db)
+
+applications_data = pd.read_csv("applications.csv")
+applications_to_db = [(applications_data.iloc[i,0], applications_data.iloc[i,1],applications_data.iloc[i,2],applications_data.iloc[i,3],applications_data.iloc[i,4],applications_data.iloc[i,5],applications_data.iloc[i,6]) for i in range(len(applications_data))]
+cursor.executemany("INSERT INTO Applications (app_id, loan_amt, prop_value, ltv, dti, fico, decision) VALUES (?,?,?,?,?,?,?);",applications_to_db)
+
+active_loans_data = pd.read_csv("active_loans.csv")
+active_loans_to_db = [(active_loans_data.iloc[i,0], active_loans_data.iloc[i,1],active_loans_data.iloc[i,2],active_loans_data.iloc[i,3],active_loans_data.iloc[i,4],active_loans_data.iloc[i,5],active_loans_data.iloc[i,6]),active_loans_data.iloc[i,7],active_loans_data.iloc[i,8],active_loans_data.iloc[i,9],active_loans_data.iloc[i,10],active_loans_data.iloc[i,11] for i in range(len(active_loans_data))]
+cursor.executemany("INSERT INTO active_loans (loan_num, app_id, prop_addr, prop_city, prop_state, prop_zip, upb, rate, p_i, escrow, next_due, edq) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);",active_loans_to_db)
+
+loan_customers_data = pd.read_csv("loan_customers.csv")
+loan_customers_to_db = [(loan_customers_data.iloc[i,0], loan_customers_data.iloc[i,1],loan_customers_data.iloc[i,2]) for i in range(len(loan_customers_data))]
+cursor.executemany("INSERT INTO loan_customers (loan_num, cust_id, role) VALUES (?,?,?);",loan_customers_to_db)
+
+application_customers_data = pd.read_csv("application_customers.csv")
+application_customers_to_db = [(application_customers_data.iloc[i,0], application_customers_data.iloc[i,1],application_customers_data.iloc[i,2]) for i in range(len(application_customers_data))]
+cursor.executemany("INSERT INTO application_customers (app_id, cust_id, role) VALUES (?,?,?);",application_customers_to_db)
+
+rfd_codes_data = pd.read_csv("rfd_codes.csv")
+rfd_codes_to_db = [(rfd_codes_data.iloc[i,0], rfd_codes_data.iloc[i,1]) for i in range(len(rfd_codes_data))]
+cursor.executemany("INSERT INTO rfd_codes (rfd, reason) VALUES (?,?);",rfd_codes_to_db)
+
+workout_codes_data = pd.read_csv("workout_codes.csv")
+workout_codes_to_db = [(workout_codes_data.iloc[i,0], workout_codes_data.iloc[i,1]) for i in range(len(workout_codes_data))]
+cursor.executemany("INSERT INTO workout_codes (workout_code, workout_type) VALUES (?,?);",workout_codes_to_db)
+
+database_connection.commit()

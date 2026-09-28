@@ -156,7 +156,7 @@ Each step gets its own notebook.
 3. **Add features one at a time:** (a) discounts (`Group7_Step3a_Discounts.ipynb`, done:
    discounts 0/5/10%, x[c,p,d], 360 vars / 391 constraints; 17 of 20 sold, revenue $1,695,600,
    expected penalties $85,710.60, expected profit $1,609,889.40; model trades discount vs.
-   guarantee by penalty multiplier, e.g. C26 2x takes risk, C25 4x takes discount), (b) close probability, (c) schedule
+   guarantee by penalty multiplier, e.g. C26 2x takes risk, C25 4x takes discount), (b) close probability (SKIPPED, see below), (c) schedule
    release / dud-game cuts, (d) two objectives + trade-off curve, (e) salesperson hours only if needed.
 4. **Rubric check and write-up.**
 
@@ -169,6 +169,12 @@ Work happens on branch `claude/project-explanation-context-i37v2a`.
 3. **The makegood is valued at the CPM the customer actually paid, after the discount** (Step 3a).
 4. Discount options of 0 / 5 / 10%.
 
+**Team modeling assumption (not for Ed):** a prospect whose goal CPM is met buys the package; we
+don't model the chance a sale falls through. Step 3b (close probability) was skipped on purpose:
+as a simple multiplier it scales every option for a customer equally, so it changes no decisions;
+the version where odds fall above goal CPM (Plan B's idea) adds an unsupported assumption and makes
+the first decision hard to explain. Mention it in the write-up as a possible extension.
+
 ## 9. Status
 
 - Done: walked through the project, base model, both plans, and all data tabs.
@@ -176,6 +182,7 @@ Work happens on branch `claude/project-explanation-context-i37v2a`.
   expected profit $936,000 vs $1,669,500; goes away with real data).
 - Done: Step 2 (real-data base model).
 - Done: Step 3a (discounts).
-- Next: Matt reviews Step 3a code, then Step 3b (close probability).
+- Step 3b skipped (see section 8).
+- Next: Step 3c (schedule release / dud-game cuts).
 - Reminder for running any notebook: keep `NFL Ad PKG MAIN.xlsx` in the same folder as the
   notebook, and make sure `openpyxl` is installed (Anaconda includes it).

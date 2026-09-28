@@ -162,7 +162,42 @@ Each step gets its own notebook.
 
 Work happens on branch `claude/project-explanation-context-i37v2a`.
 
-## 8. Assumptions to confirm with Ed
+## 8. Key concepts (for our own understanding and the presentation)
+
+### Why discounts matter: they create the trade-off
+
+**The one-sentence version:** there are two ways to lower a customer's price per thousand:
+promise more audience (a bigger guarantee, which is risky) or charge less (a discount, which costs
+money for certain). The model picks the cheaper way for each customer, based on their penalty
+multiplier.
+
+**Without discounts (Step 2), there is no real decision:**
+- The only way to lower the CPM is a bigger guarantee, so the answer is one rule: give each
+  customer the smallest guarantee that meets their goal CPM.
+- Only 8 of 30 prospects qualify; the 20-spot limit never matters.
+- The only way to cut risk is to drop customers, so the revenue-vs-risk trade-off (Step 3d)
+  would be a few jumps across 8 customers.
+- A professor could fairly ask why this needs an optimizer.
+
+**With discounts (Step 3a), every customer is a real choice between risk and revenue:**
+- 17 prospects buy, and expected profit roughly doubles ($776,934 to $1,609,889).
+- **C26 (2x penalty)** takes premium at full price: $108,000 - $4,500 expected penalty =
+  $103,500, beating medium at 5% off ($102,600). Low multiplier: the risk is cheaper than
+  the discount.
+- **C25 (4x penalty)** takes medium at 5% off: $102,600 with no risk, beating premium at
+  full price ($108,000 - $9,000 = $99,000). High multiplier: the discount is cheaper than
+  the risk.
+- In Step 3d, cutting makegood risk means moving customers from "big guarantee, full price"
+  to "safe guarantee, a bit off", so each point on the trade-off curve is a meaningful
+  business choice.
+- After Step 3c (dud-game cuts), guarantees fall short more often, so discounts become the
+  station's main protection, and matter even more.
+
+**Contrast with the close ratio (Step 3b, skipped):** discounts change *which* option each
+customer gets; the close ratio would only have scaled every option equally and changed no
+decisions. That's the test for every feature we keep: does it create a real decision?
+
+## 9. Assumptions to confirm with Ed
 
 1. Guarantee levels of 0 / 15 / 20 / 25% (chosen to match the Nielsen increases; Plan B used 0 / 15 / 25%).
 2. The missing audience is valued at the package CPM.
@@ -175,7 +210,7 @@ as a simple multiplier it scales every option for a customer equally, so it chan
 the version where odds fall above goal CPM (Plan B's idea) adds an unsupported assumption and makes
 the first decision hard to explain. Mention it in the write-up as a possible extension.
 
-## 9. Status
+## 10. Status
 
 - Done: walked through the project, base model, both plans, and all data tabs.
 - Done: Step 1 (tidy base model). Kept 1.5M stand-in as a stated assumption (0 would give

@@ -1,7 +1,7 @@
 # Group 7 Project Notes: NFL Ad Package Optimization
 
 Running notes so the project context survives between sessions.
-Last updated: 2026-09-28 (Step 3c done).
+Last updated: 2026-09-28 (Step 3d done).
 
 ---
 
@@ -159,7 +159,13 @@ Each step gets its own notebook.
    guarantee by penalty multiplier, e.g. C26 2x takes risk, C25 4x takes discount),
    (c) schedule release (`Group7_Step3c_Schedule_Release.ipynb`, done: actual audience =
    revised_000s x (1 + increase); 17 sold, revenue $1,690,200, expected penalties $504,307.43,
-   expected profit $1,185,892.57; only C26 switches to medium 5% off), (b) close probability (SKIPPED, see below), (c) schedule
+   expected profit $1,185,892.57; only C26 switches to medium 5% off),
+   (d) two objectives + trade-off (`Group7_Step3d_Tradeoff.ipynb`, chart
+   `Group7_Step3d_Tradeoff.png`, done: maximize revenue vs. minimize makegood cost via a
+   makegood budget constraint (Constraint 4), 10 budget levels + Ed's point; 360 vars,
+   392 constraints, 4 families, 2 objectives. Curve: ~$5 revenue per $1 risk at the left,
+   Ed's max-profit point at $504,307 risk / $1,690,200 revenue / $1,185,893 profit;
+   last $203K of risk buys only $70K revenue (shift to aggressive at smaller discounts)), (b) close probability (SKIPPED, see below), (c) schedule
    release / dud-game cuts, (d) two objectives + trade-off curve, (e) salesperson hours only if needed.
 4. **Rubric check and write-up.**
 
@@ -262,6 +268,7 @@ the first decision hard to explain. Mention it in the write-up as a possible ext
 - Done: Step 3a (discounts).
 - Step 3b skipped (see section 8).
 - Done: Step 3c (minimal version: plan for the duds; see section 8b).
-- Next: Matt reviews Step 3c code, then Step 3d (two objectives + trade-off).
+- Done: Step 3d (two objectives + trade-off curve). All rubric counts met.
+- Next: Matt reviews Step 3d; then decide whether 3e (salesperson hours) is needed, and Step 4 (rubric check + write-up).
 - Reminder for running any notebook: keep `NFL Ad PKG MAIN.xlsx` in the same folder as the
   notebook, and make sure `openpyxl` is installed (Anaconda includes it).

@@ -148,8 +148,11 @@ Each step gets its own notebook.
 1. **Tidy the base model.** `Group7_Step1_Base_Model.ipynb`. Done: cleanup items 1-5 in
    section 3 fixed, `scenarios` renamed to `packages`, unused code removed.
    Results identical to the original ($1,669,500 expected profit).
-2. **Real-data base model:** same structure, data read from `NFL Ad PKG MAIN.xlsx`
-   (packages = guarantee levels; outcomes = Nielsen scenarios; 2x/3x/4x makegood penalties).
+2. **Real-data base model.** `Group7_Step2_Real_Data.ipynb`. Done: same model, data read from
+   `NFL Ad PKG MAIN.xlsx`. Packages = guarantee levels 0/15/20/25% (team assumption) on the
+   $108K package; outcomes = the 3 Nielsen scenarios; penalty = multiplier x shortfall x package CPM.
+   Result: 8 of 20 sold, revenue $864,000, expected penalties $87,066, expected profit $776,934.
+   Only 8 prospects meet their goal CPM even at +25% (observation 2 in action).
 3. **Add features one at a time:** (a) discounts, (b) close probability, (c) schedule
    release / dud-game cuts, (d) two objectives + trade-off curve, (e) salesperson hours only if needed.
 4. **Rubric check and write-up.**
@@ -159,5 +162,7 @@ Work happens on branch `claude/project-explanation-context-i37v2a`.
 ## 8. Status
 
 - Done: walked through the project, base model, both plans, and all data tabs.
-- Done: Step 1 (tidy base model).
-- Next: Matt reviews Step 1 code, then Step 2.
+- Done: Step 1 (tidy base model). Kept 1.5M stand-in as a stated assumption (0 would give
+  expected profit $936,000 vs $1,669,500; goes away with real data).
+- Done: Step 2 (real-data base model).
+- Next: Matt reviews Step 2 code, then Step 3a (discounts).

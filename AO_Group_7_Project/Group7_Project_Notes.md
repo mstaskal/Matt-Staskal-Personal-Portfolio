@@ -1,7 +1,57 @@
 # Group 7 Project Notes: NFL Ad Package Optimization
 
 Running notes so the project context survives between sessions.
-Last updated: 2026-09-28 (MVP for group meeting done).
+Last updated: 2026-09-28 (paused after MVP; waiting on group meeting).
+
+---
+
+## RESUME HERE (saved 2026-09-28)
+
+**To pick back up:** start a new session and say *"Read `Group7_Project_Notes.md` and let's pick up
+where we left off."* Everything needed is in this file.
+
+**Where we stopped:** the MVP is done and delivered for the group meeting. Matt is reviewing it with
+the group and will come back with decisions and Ed's answers.
+
+**Where the files are (on `main`):**
+- `AO_Group_7_Project/`: everything for the meeting: `Group7_MVP_Model.ipynb`,
+  `Group7_MVP_Meeting_Guide.md`, `Group7_MVP_Tradeoff.png`, `NFL Ad PKG MAIN.xlsx`, `clean_data/`,
+  a copy of these notes, and a README.
+- Repo top folder: the step notebooks (`Group7_Step1` ... `Group7_Step3d`), the original setup notebook,
+  the Plan A/B skeletons, the data files, and these notes. Step notebooks stay there for now (Matt's choice).
+- Working branch `claude/project-explanation-context-i37v2a` = `main` (everything merged).
+
+**MVP in one line:** 30 prospects x 4 guarantee levels x 3 discounts = 360 binary variables; 62
+constraints in 4 families (one package per customer, CPM requirement per customer, 20-package
+inventory, makegood budget); 2 objectives (max expected revenue vs. min expected makegood cost),
+traced as a trade-off curve. Max-profit point: $1,690,200 revenue, $504,307 makegoods,
+$1,185,893 profit, 17 of 20 sold.
+
+**Waiting on the group meeting (decisions):**
+1. Balance point: max-profit point (proposed) or a more cautious one? Must be defended in the report.
+2. Dud games: keep (real risk, timeline simplification) or remove (clean timeline, ~$215K risk)?
+3. Simplify: remove the conservative package (identical results, 270 vars)?
+4. Next extension, if any: salesperson hours (Plan B's Stage 2 / Step 3e, skipped so far)?
+5. Report assignments.
+
+**Waiting on Ed (most important):**
+1. Are the prospect goal CPMs and 2x/3x/4x multipliers real station data? They're identical to the
+   theoretical base model; the rubric forbids made-up or AI-generated data.
+2. Sources of the Nielsen probabilities, low-interest cuts, rates, and audience estimates.
+3. What was anonymized/rescaled, and why.
+4. Permission to share (ask the professor before Week 5 if unsure).
+5. Confirm the assumptions in section 9.
+
+**How Matt likes to work (keep doing this):**
+- Go slowly, one step at a time; confirm understanding before moving on (a "10-4" when Matt is
+  just explaining).
+- Keep complexity minimal and explainable in class terms (gurobipy, dicts, `addVars`/`addConstrs`/
+  `quicksum`, same style as the base model). Every feature must create a real decision.
+- After each step: push to GitHub, show the updated code in chat, and give a plain-language overview.
+- Always remind: use the `.xlsx` (not the `.csv`), keep it in the same folder as the notebook, and
+  `openpyxl` must be installed (Anaconda includes it).
+- Merge to `main` when Matt asks. Don't open pull requests unless asked.
+- Hold observations and fixes until Matt is ready for them; ask before design forks (like Step 3b).
 
 ---
 

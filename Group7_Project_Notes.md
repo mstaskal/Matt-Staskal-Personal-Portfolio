@@ -42,6 +42,22 @@ $1,185,893 profit, 17 of 20 sold.
 4. Permission to share (ask the professor before Week 5 if unsure).
 5. Confirm the assumptions in section 9.
 
+**Before final submission (to do when Matt says so; not done yet):**
+1. **Remove `import course_utils`** from the MVP notebook. Nothing uses it, and if the professor
+   doesn't have that file, the first cell fails. (Alternative: include `course_utils.py` in the zip.)
+2. **Add a friendly missing-file check** right after `RAW_FILE = ...`:
+   `if not os.path.exists(RAW_FILE): raise FileNotFoundError("Can't find '...'. Unzip the project and
+   keep the .xlsx in the same folder as this notebook.")`
+3. **README: openpyxl note.** If pandas says "Missing optional dependency 'openpyxl'", run
+   `%pip install openpyxl` in a cell (or `conda install openpyxl` / `pip install openpyxl`), then
+   restart the kernel. **Fallback:** openpyxl is only needed for Part 1 (reading the raw .xlsx); the
+   zip includes `clean_data/`, so skipping Part 1 still runs Parts 2+ with the same results.
+4. **README: unzip first**, and open the notebook from inside the unzipped folder (relative paths
+   `RAW_FILE`/`CLEAN_DIR` work on any OS as long as the folder stays together and nothing is renamed).
+5. **Data visibility:** the repo is **public**, so Ed's `.xlsx` is visible online. Check with Ed; if
+   not OK, move the project to a private repo (removing the file alone leaves it in git history).
+   For the group, share via the zip in Teams (Files tab) rather than the public repo link.
+
 **How Matt likes to work (keep doing this):**
 - Go slowly, one step at a time; confirm understanding before moving on (a "10-4" when Matt is
   just explaining).

@@ -1,0 +1,31 @@
+id,prospect,goal_cpm,penalty
+C01,Car Dealer A,42.71,4
+C02,Car Dealer B,43.33,3
+C03,Grocery Store A,40.24,2
+C04,Specialty Retail A,43.95,4
+C05,Fast Food A,44.57,3
+C06,Fast Food B,45.19,3
+C07,Grocery Store B,45.8,2
+C08,Car Dealer C,46.43,4
+C09,Fast Food C,40.85,3
+C10,Sporting Goods A,47.04,2
+C11,Farm Equipment A,47.67,3
+C12,Home Improvement A,48.28,4
+C13,Bank A,48.9,3
+C14,Furniture Store A,49.52,2
+C15,Auto Parts A,41.48,3
+C16,Insurance Agency A,50.14,3
+C17,HVAC Company A,50.76,4
+C18,Restaurant A,51.38,2
+C19,Farm Supply A,51.99,3
+C20,Credit Union A,52.62,4
+C21,Outdoor Recreation A,53.23,3
+C22,Beverage Distributor A,42.09,2
+C23,Car Dealer D,53.86,3
+C24,Grocery Store C,54.47,3
+C25,Home Builder A,55.09,4
+C26,Healthcare System A,55.71,2
+C27,Wireless Retailer A,56.33,3
+C28,Convenience Store A,42.4,4
+C29,Ag Services A,57.57,3
+C30,Financial Services A,58.81,2

@@ -1,7 +1,7 @@
 # Group 7 Project Notes: NFL Ad Package Optimization
 
 Running notes so the project context survives between sessions.
-Last updated: 2026-09-28 (Step 3d done).
+Last updated: 2026-09-28 (MVP for group meeting done).
 
 ---
 
@@ -167,7 +167,13 @@ Each step gets its own notebook.
    Ed's max-profit point at $504,307 risk / $1,690,200 revenue / $1,185,893 profit;
    last $203K of risk buys only $70K revenue (shift to aggressive at smaller discounts)), (b) close probability (SKIPPED, see below), (c) schedule
    release / dud-game cuts, (d) two objectives + trade-off curve, (e) salesperson hours only if needed.
-4. **Rubric check and write-up.**
+4. **Rubric check and write-up.** Done (MVP for the group meeting, not the final project):
+   `Group7_MVP_Model.ipynb`, `Group7_MVP_Meeting_Guide.md`, `Group7_MVP_Tradeoff.png`, `clean_data/`.
+   Rubric fixes: CPM rule rewritten per customer (the old `x <= eligible` was a single-variable
+   bound, which the rubric doesn't count: 32 -> 62 non-trivial constraints, 4 families);
+   tie-breaker so the riskiest end of the curve is well defined; raw -> clean CSVs, model reads
+   only clean files; team assumptions in their own cell. Removal tests: conservative package and
+   inventory limit can go with identical results; CPM rule, discounts, guarantees, budget cannot.
 
 Work happens on branch `claude/project-explanation-context-i37v2a`.
 
@@ -269,6 +275,10 @@ the first decision hard to explain. Mention it in the write-up as a possible ext
 - Step 3b skipped (see section 8).
 - Done: Step 3c (minimal version: plan for the duds; see section 8b).
 - Done: Step 3d (two objectives + trade-off curve). All rubric counts met.
-- Next: Matt reviews Step 3d; then decide whether 3e (salesperson hours) is needed, and Step 4 (rubric check + write-up).
+- Step 3e (salesperson hours) skipped for now.
+- Done: Step 4 (MVP notebook + meeting guide).
+- Next: group meeting. Decisions: balance point, keep/remove dud games, simplify, next extension,
+  report assignments. **Most important:** Ed's answers on data provenance (prospect goal CPMs are
+  identical to the theoretical base model; must be real data per the rubric).
 - Reminder for running any notebook: keep `NFL Ad PKG MAIN.xlsx` in the same folder as the
   notebook, and make sure `openpyxl` is installed (Anaconda includes it).

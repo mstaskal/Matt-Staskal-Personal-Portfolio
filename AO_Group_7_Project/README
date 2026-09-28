@@ -1,1 +1,16 @@
+AO Group 7 Project: NFL Ad Package Optimization (MVP for group meeting)
 
+Start here:
+  1. Group7_MVP_Meeting_Guide.md  - meeting agenda, key concepts, decisions, questions for Ed
+  2. Group7_MVP_Model.ipynb       - the MVP model (data, math formulation, code, results, discussion)
+
+Also in this folder:
+  - Group7_MVP_Tradeoff.png  - the revenue vs. makegood risk chart
+  - NFL Ad PKG MAIN.xlsx     - Ed's raw data (do not edit)
+  - clean_data/              - clean files the model reads (re-created by the notebook)
+  - Group7_Project_Notes.md  - full project notes and history
+
+To run the notebook:
+  - Keep NFL Ad PKG MAIN.xlsx in this same folder (use the .xlsx, not the .csv).
+  - openpyxl must be installed (Anaconda includes it).
+  - Run the cells top to bottom.

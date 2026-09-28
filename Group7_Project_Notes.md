@@ -153,7 +153,10 @@ Each step gets its own notebook.
    $108K package; outcomes = the 3 Nielsen scenarios; penalty = multiplier x shortfall x package CPM.
    Result: 8 of 20 sold, revenue $864,000, expected penalties $87,066, expected profit $776,934.
    Only 8 prospects meet their goal CPM even at +25% (observation 2 in action).
-3. **Add features one at a time:** (a) discounts, (b) close probability, (c) schedule
+3. **Add features one at a time:** (a) discounts (`Group7_Step3a_Discounts.ipynb`, done:
+   discounts 0/5/10%, x[c,p,d], 360 vars / 391 constraints; 17 of 20 sold, revenue $1,695,600,
+   expected penalties $85,710.60, expected profit $1,609,889.40; model trades discount vs.
+   guarantee by penalty multiplier, e.g. C26 2x takes risk, C25 4x takes discount), (b) close probability, (c) schedule
    release / dud-game cuts, (d) two objectives + trade-off curve, (e) salesperson hours only if needed.
 4. **Rubric check and write-up.**
 
@@ -165,4 +168,7 @@ Work happens on branch `claude/project-explanation-context-i37v2a`.
 - Done: Step 1 (tidy base model). Kept 1.5M stand-in as a stated assumption (0 would give
   expected profit $936,000 vs $1,669,500; goes away with real data).
 - Done: Step 2 (real-data base model).
-- Next: Matt reviews Step 2 code, then Step 3a (discounts).
+- Done: Step 3a (discounts).
+- Next: Matt reviews Step 3a code, then Step 3b (close probability).
+- Reminder for running any notebook: keep `NFL Ad PKG MAIN.xlsx` in the same folder as the
+  notebook, and make sure `openpyxl` is installed (Anaconda includes it).

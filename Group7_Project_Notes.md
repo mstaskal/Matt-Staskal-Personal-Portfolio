@@ -1,7 +1,7 @@
 # Group 7 Project Notes: NFL Ad Package Optimization
 
 Running notes so the project context survives between sessions.
-Last updated: 2026-09-28 (end of the "getting up to speed" review, before next steps).
+Last updated: 2026-09-28 (Step 3c proposal, pending review).
 
 ---
 
@@ -197,6 +197,46 @@ multiplier.
 customer gets; the close ratio would only have scaled every option equally and changed no
 decisions. That's the test for every feature we keep: does it create a real decision?
 
+## 8b. Step 3c proposal: schedule release (PENDING Matt's decision)
+
+**What the schedule does:** after the dud-game cuts, the package baseline drops from 1631.3 to
+1465.938 (000s) (total of col I, 'Schedule Release 1-Min Qualifer'). Delivered audience:
+
+| Nielsen increase | July view (no duds) | August view (duds cut) |
+|---|---:|---:|
+| +15% | 1,876.0 | 1,685.8 |
+| +20% | 1,957.6 | 1,759.1 |
+| +25% | 2,039.1 | 1,832.4 |
+
+In the August view, every guarantee above 0% falls short in every scenario (medium, risk-free in
+Step 3a, now misses by 44-190).
+
+**Effect on the Step 3a plan:**
+
+| | Expected penalties | Expected profit |
+|---|---:|---:|
+| Step 3a plan, as July expects it | $85,711 | $1,609,889 |
+| Same plan, after the August schedule | $513,444 | $1,182,156 |
+| Re-planned knowing about the duds | $504,307 | $1,185,893 |
+
+- Dud games multiply makegood risk about 6x (Ed's real-world problem).
+- Re-planning barely changes decisions (only C26 switches: premium 0% off -> medium 5% off;
+  +$3,700). With one profit objective, every sale still pays for itself.
+- This sets up Step 3d: ~$500K of risk gives the revenue-vs-risk trade-off real weight
+  (vs. only $86K without 3c).
+
+**Proposed minimal 3c:** load `revised_000s` (1465.938); change one line so
+actual audience = `revised_000s x (1 + increase)`; guarantees and CPMs stay on the July baseline
+(that's what was promised); comparison table goes in the markdown, no extra code.
+
+**Timeline caveat (state in the report):** the station really sells in July, before it knows the
+duds. The model plans as if it expects the dud cuts, using the August schedule as its best estimate
+("the station plans for dud risk"). Reacting after the schedule (Plan B's salesperson stage) is the
+natural extension.
+
+**Alternative considered:** keep the July view and only evaluate against August in a separate cell.
+Avoids the caveat, but Step 3d would then work with the small $86K risk.
+
 ## 9. Assumptions to confirm with Ed
 
 1. Guarantee levels of 0 / 15 / 20 / 25% (chosen to match the Nielsen increases; Plan B used 0 / 15 / 25%).
@@ -218,6 +258,7 @@ the first decision hard to explain. Mention it in the write-up as a possible ext
 - Done: Step 2 (real-data base model).
 - Done: Step 3a (discounts).
 - Step 3b skipped (see section 8).
-- Next: Step 3c (schedule release / dud-game cuts).
+- Step 3c: proposal written up (section 8b); Matt reviewing before any code.
+- Next: Matt's decision on 3c, then Step 3d (two objectives + trade-off).
 - Reminder for running any notebook: keep `NFL Ad PKG MAIN.xlsx` in the same folder as the
   notebook, and make sure `openpyxl` is installed (Anaconda includes it).

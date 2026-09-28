@@ -1,7 +1,7 @@
 # Group 7 Project Notes: NFL Ad Package Optimization
 
 Running notes so the project context survives between sessions.
-Last updated: 2026-09-28 (Step 3c proposal, pending review).
+Last updated: 2026-09-28 (Step 3c done).
 
 ---
 
@@ -156,7 +156,10 @@ Each step gets its own notebook.
 3. **Add features one at a time:** (a) discounts (`Group7_Step3a_Discounts.ipynb`, done:
    discounts 0/5/10%, x[c,p,d], 360 vars / 391 constraints; 17 of 20 sold, revenue $1,695,600,
    expected penalties $85,710.60, expected profit $1,609,889.40; model trades discount vs.
-   guarantee by penalty multiplier, e.g. C26 2x takes risk, C25 4x takes discount), (b) close probability (SKIPPED, see below), (c) schedule
+   guarantee by penalty multiplier, e.g. C26 2x takes risk, C25 4x takes discount),
+   (c) schedule release (`Group7_Step3c_Schedule_Release.ipynb`, done: actual audience =
+   revised_000s x (1 + increase); 17 sold, revenue $1,690,200, expected penalties $504,307.43,
+   expected profit $1,185,892.57; only C26 switches to medium 5% off), (b) close probability (SKIPPED, see below), (c) schedule
    release / dud-game cuts, (d) two objectives + trade-off curve, (e) salesperson hours only if needed.
 4. **Rubric check and write-up.**
 
@@ -197,7 +200,7 @@ multiplier.
 customer gets; the close ratio would only have scaled every option equally and changed no
 decisions. That's the test for every feature we keep: does it create a real decision?
 
-## 8b. Step 3c proposal: schedule release (PENDING Matt's decision)
+## 8b. Step 3c: schedule release (DONE, minimal version chosen)
 
 **What the schedule does:** after the dud-game cuts, the package baseline drops from 1631.3 to
 1465.938 (000s) (total of col I, 'Schedule Release 1-Min Qualifer'). Delivered audience:
@@ -258,7 +261,7 @@ the first decision hard to explain. Mention it in the write-up as a possible ext
 - Done: Step 2 (real-data base model).
 - Done: Step 3a (discounts).
 - Step 3b skipped (see section 8).
-- Step 3c: proposal written up (section 8b); Matt reviewing before any code.
-- Next: Matt's decision on 3c, then Step 3d (two objectives + trade-off).
+- Done: Step 3c (minimal version: plan for the duds; see section 8b).
+- Next: Matt reviews Step 3c code, then Step 3d (two objectives + trade-off).
 - Reminder for running any notebook: keep `NFL Ad PKG MAIN.xlsx` in the same folder as the
   notebook, and make sure `openpyxl` is installed (Anaconda includes it).

@@ -1,7 +1,7 @@
 # Group 7 Project Notes: NFL Ad Package Optimization
 
 Running notes so the project context survives between sessions.
-Last updated: 2026-09-28 (end of the "getting up to speed" review, before next steps).
+Last updated: 2026-09-28 (Step 3c proposal, pending review).
 
 ---
 
@@ -153,16 +153,112 @@ Each step gets its own notebook.
    $108K package; outcomes = the 3 Nielsen scenarios; penalty = multiplier x shortfall x package CPM.
    Result: 8 of 20 sold, revenue $864,000, expected penalties $87,066, expected profit $776,934.
    Only 8 prospects meet their goal CPM even at +25% (observation 2 in action).
-3. **Add features one at a time:** (a) discounts, (b) close probability, (c) schedule
+3. **Add features one at a time:** (a) discounts (`Group7_Step3a_Discounts.ipynb`, done:
+   discounts 0/5/10%, x[c,p,d], 360 vars / 391 constraints; 17 of 20 sold, revenue $1,695,600,
+   expected penalties $85,710.60, expected profit $1,609,889.40; model trades discount vs.
+   guarantee by penalty multiplier, e.g. C26 2x takes risk, C25 4x takes discount), (b) close probability (SKIPPED, see below), (c) schedule
    release / dud-game cuts, (d) two objectives + trade-off curve, (e) salesperson hours only if needed.
 4. **Rubric check and write-up.**
 
 Work happens on branch `claude/project-explanation-context-i37v2a`.
 
-## 8. Status
+## 8. Key concepts (for our own understanding and the presentation)
+
+### Why discounts matter: they create the trade-off
+
+**The one-sentence version:** there are two ways to lower a customer's price per thousand:
+promise more audience (a bigger guarantee, which is risky) or charge less (a discount, which costs
+money for certain). The model picks the cheaper way for each customer, based on their penalty
+multiplier.
+
+**Without discounts (Step 2), there is no real decision:**
+- The only way to lower the CPM is a bigger guarantee, so the answer is one rule: give each
+  customer the smallest guarantee that meets their goal CPM.
+- Only 8 of 30 prospects qualify; the 20-spot limit never matters.
+- The only way to cut risk is to drop customers, so the revenue-vs-risk trade-off (Step 3d)
+  would be a few jumps across 8 customers.
+- A professor could fairly ask why this needs an optimizer.
+
+**With discounts (Step 3a), every customer is a real choice between risk and revenue:**
+- 17 prospects buy, and expected profit roughly doubles ($776,934 to $1,609,889).
+- **C26 (2x penalty)** takes premium at full price: $108,000 - $4,500 expected penalty =
+  $103,500, beating medium at 5% off ($102,600). Low multiplier: the risk is cheaper than
+  the discount.
+- **C25 (4x penalty)** takes medium at 5% off: $102,600 with no risk, beating premium at
+  full price ($108,000 - $9,000 = $99,000). High multiplier: the discount is cheaper than
+  the risk.
+- In Step 3d, cutting makegood risk means moving customers from "big guarantee, full price"
+  to "safe guarantee, a bit off", so each point on the trade-off curve is a meaningful
+  business choice.
+- After Step 3c (dud-game cuts), guarantees fall short more often, so discounts become the
+  station's main protection, and matter even more.
+
+**Contrast with the close ratio (Step 3b, skipped):** discounts change *which* option each
+customer gets; the close ratio would only have scaled every option equally and changed no
+decisions. That's the test for every feature we keep: does it create a real decision?
+
+## 8b. Step 3c proposal: schedule release (PENDING Matt's decision)
+
+**What the schedule does:** after the dud-game cuts, the package baseline drops from 1631.3 to
+1465.938 (000s) (total of col I, 'Schedule Release 1-Min Qualifer'). Delivered audience:
+
+| Nielsen increase | July view (no duds) | August view (duds cut) |
+|---|---:|---:|
+| +15% | 1,876.0 | 1,685.8 |
+| +20% | 1,957.6 | 1,759.1 |
+| +25% | 2,039.1 | 1,832.4 |
+
+In the August view, every guarantee above 0% falls short in every scenario (medium, risk-free in
+Step 3a, now misses by 44-190).
+
+**Effect on the Step 3a plan:**
+
+| | Expected penalties | Expected profit |
+|---|---:|---:|
+| Step 3a plan, as July expects it | $85,711 | $1,609,889 |
+| Same plan, after the August schedule | $513,444 | $1,182,156 |
+| Re-planned knowing about the duds | $504,307 | $1,185,893 |
+
+- Dud games multiply makegood risk about 6x (Ed's real-world problem).
+- Re-planning barely changes decisions (only C26 switches: premium 0% off -> medium 5% off;
+  +$3,700). With one profit objective, every sale still pays for itself.
+- This sets up Step 3d: ~$500K of risk gives the revenue-vs-risk trade-off real weight
+  (vs. only $86K without 3c).
+
+**Proposed minimal 3c:** load `revised_000s` (1465.938); change one line so
+actual audience = `revised_000s x (1 + increase)`; guarantees and CPMs stay on the July baseline
+(that's what was promised); comparison table goes in the markdown, no extra code.
+
+**Timeline caveat (state in the report):** the station really sells in July, before it knows the
+duds. The model plans as if it expects the dud cuts, using the August schedule as its best estimate
+("the station plans for dud risk"). Reacting after the schedule (Plan B's salesperson stage) is the
+natural extension.
+
+**Alternative considered:** keep the July view and only evaluate against August in a separate cell.
+Avoids the caveat, but Step 3d would then work with the small $86K risk.
+
+## 9. Assumptions to confirm with Ed
+
+1. Guarantee levels of 0 / 15 / 20 / 25% (chosen to match the Nielsen increases; Plan B used 0 / 15 / 25%).
+2. The missing audience is valued at the package CPM.
+3. **The makegood is valued at the CPM the customer actually paid, after the discount** (Step 3a).
+4. Discount options of 0 / 5 / 10%.
+
+**Team modeling assumption (not for Ed):** a prospect whose goal CPM is met buys the package; we
+don't model the chance a sale falls through. Step 3b (close probability) was skipped on purpose:
+as a simple multiplier it scales every option for a customer equally, so it changes no decisions;
+the version where odds fall above goal CPM (Plan B's idea) adds an unsupported assumption and makes
+the first decision hard to explain. Mention it in the write-up as a possible extension.
+
+## 10. Status
 
 - Done: walked through the project, base model, both plans, and all data tabs.
 - Done: Step 1 (tidy base model). Kept 1.5M stand-in as a stated assumption (0 would give
   expected profit $936,000 vs $1,669,500; goes away with real data).
 - Done: Step 2 (real-data base model).
-- Next: Matt reviews Step 2 code, then Step 3a (discounts).
+- Done: Step 3a (discounts).
+- Step 3b skipped (see section 8).
+- Step 3c: proposal written up (section 8b); Matt reviewing before any code.
+- Next: Matt's decision on 3c, then Step 3d (two objectives + trade-off).
+- Reminder for running any notebook: keep `NFL Ad PKG MAIN.xlsx` in the same folder as the
+  notebook, and make sure `openpyxl` is installed (Anaconda includes it).

@@ -162,7 +162,14 @@ Each step gets its own notebook.
 
 Work happens on branch `claude/project-explanation-context-i37v2a`.
 
-## 8. Status
+## 8. Assumptions to confirm with Ed
+
+1. Guarantee levels of 0 / 15 / 20 / 25% (chosen to match the Nielsen increases; Plan B used 0 / 15 / 25%).
+2. The missing audience is valued at the package CPM.
+3. **The makegood is valued at the CPM the customer actually paid, after the discount** (Step 3a).
+4. Discount options of 0 / 5 / 10%.
+
+## 9. Status
 
 - Done: walked through the project, base model, both plans, and all data tabs.
 - Done: Step 1 (tidy base model). Kept 1.5M stand-in as a stated assumption (0 would give

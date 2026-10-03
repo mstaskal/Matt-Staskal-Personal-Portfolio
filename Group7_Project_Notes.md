@@ -1,7 +1,7 @@
 # Group 7 Project Notes: NFL Ad Package Optimization
 
 Running notes so the project context survives between sessions.
-Last updated: 2026-09-28 (paused after MVP; waiting on group meeting).
+Last updated: 2026-10-03 (MVP reviewed with professor; now writing the final report).
 
 ---
 
@@ -12,6 +12,10 @@ where we left off."* Everything needed is in this file.
 
 **Where we stopped:** the MVP is done and delivered for the group meeting. Matt is reviewing it with
 the group and will come back with decisions and Ed's answers.
+
+**Update 2026-10-03:** the group meeting went well, and the professor reviewed the MVP and liked it.
+Group members are finalizing the notebook; Matt is writing the **Model** section of the final report.
+The `.to_numpy()` chart fix worked on Matt's machine (old matplotlib + new pandas).
 
 **Where the files are (on `main`):**
 - `AO_Group_7_Project/`: everything for the meeting: `Group7_MVP_Model.ipynb`,
@@ -54,7 +58,12 @@ $1,185,893 profit, 17 of 20 sold.
    zip includes `clean_data/`, so skipping Part 1 still runs Parts 2+ with the same results.
 4. **README: unzip first**, and open the notebook from inside the unzipped folder (relative paths
    `RAW_FILE`/`CLEAN_DIR` work on any OS as long as the folder stays together and nothing is renamed).
-5. **Data visibility:** the repo is **public**, so Ed's `.xlsx` is visible online. Check with Ed; if
+5. **Chart fix:** in the first `ax.plot(...)`, use `df_results["penalty"].to_numpy() / 1000` and
+   `df_results["revenue"].to_numpy() / 1000` (works with old and new matplotlib/pandas).
+6. **README: clean environment** for anyone with version errors:
+   `conda create -n ao python=3.11 numpy pandas matplotlib openpyxl jupyter`, `conda activate ao`,
+   `pip install gurobipy`. Use conda (not pip) for everything except gurobipy.
+7. **Data visibility:** the repo is **public**, so Ed's `.xlsx` is visible online. Check with Ed; if
    not OK, move the project to a private repo (removing the file alone leaves it in git history).
    For the group, share via the zip in Teams (Files tab) rather than the public repo link.
 

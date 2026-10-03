@@ -16,6 +16,8 @@ the group and will come back with decisions and Ed's answers.
 **Update 2026-10-03:** the group meeting went well, and the professor reviewed the MVP and liked it.
 Group members are finalizing the notebook; Matt is writing the **Model** section of the final report.
 The `.to_numpy()` chart fix worked on Matt's machine (old matplotlib + new pandas).
+**Decision: the MVP model is the FINAL model; nothing changes.** The group is only cleaning up the
+notebook and putting explanations into their own words. Write-ups should match the MVP exactly.
 
 **Where the files are (on `main`):**
 - `AO_Group_7_Project/`: everything for the meeting: `Group7_MVP_Model.ipynb`,
